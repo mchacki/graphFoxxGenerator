@@ -8,7 +8,11 @@
     var TM = require("templateManager").TemplateManager;
     var man = new TM();
     var _ = require("underscore");
-    console.log(man.nodesCreateFunction("Hallo Welt"));
+    var fs = require("fs");
+    fs.write(module.devAppPath() + "/meierei.js", man.generateApp());
+    
+    
+    //console.log(man.nodesCreateFunction("Hallo Welt"));
   })
   .nickname("name")
   .summary("summary")

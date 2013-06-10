@@ -3,7 +3,9 @@
   var FoxxApplication = require("org/arangodb/foxx").Application,
     app = new FoxxApplication();
 
-    // More to Add!
+    <%= man.nodesCreateFunction("Hallo Welt") %>
+    
+    <%= man.nodesPatchFunction("Hallo Welt") %>
   
   app.start(applicationContext);
 }());
