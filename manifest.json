@@ -1,0 +1,16 @@
+{
+  "name": "graphFoxxGenerator",
+  "version": "0.1.0",
+  "description": "A Generator for Foxx Apps shipping the graph viewer.",
+
+  "apps": {
+    "/": "generator.js"
+  },
+  
+  "lib": "lib",
+
+  
+  "files": {
+    "js_templates": "templates"
+  }
+}
