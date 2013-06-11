@@ -2,10 +2,19 @@
   "use strict";
   var FoxxApplication = require("org/arangodb/foxx").Application,
     app = new FoxxApplication();
-
-    <%= man.nodesCreateFunction("Hallo Welt") %>
+    <%= man.nodesCreateFunction(config.nodeCreate) %>
     
-    <%= man.nodesPatchFunction("Hallo Welt") %>
+    <%= man.nodesPatchFunction(config.nodePatch) %>
+    
+    <%= man.nodesDeleteFunction(config.nodeDelete) %>
+    
+    <%= man.edgesCreateFunction(config.edgeCreate) %>
+    
+    <%= man.edgesPatchFunction(config.edgePatch) %>
+    
+    <%= man.edgesDeleteFunction(config.edgeDelete) %>
+  
+    <%= man.edgesForNodeDeleteFunction(config.edgeForNodeDelete) %>
   
   app.start(applicationContext);
 }());
