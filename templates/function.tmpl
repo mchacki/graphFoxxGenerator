@@ -1,4 +1,4 @@
-app.<%= type %>('/<%= route%>', function (req, res) {
+app.<%= type.toLowerCase() %>('/<%= route%>', function (req, res) {
   <%= action%>
 })
 .nickname("<%= name %>")

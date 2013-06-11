@@ -4,22 +4,51 @@
     app = new FoxxApplication();
 
   app.get('/route', function (req, res) {
-    var console = require("console");
     var TM = require("templateManager").TemplateManager;
     var man = new TM();
-    var _ = require("underscore");
-    var fs = require("fs");
-    fs.write(module.devAppPath() + "/meierei.js", man.generateApp());
     
-    
-    //console.log(man.nodesCreateFunction("Hallo Welt"));
+    var error = man.generateAll({
+      name: "Test",
+      manifest: {
+        name: "Test",
+        version: "0.1.0",
+        description: "My Test App"
+      }
+    });
+    if (error) {
+      res.status(error.errorNum);
+      res.body = error.errorMessage;
+    }
   })
   .nickname("name")
   .summary("summary")
   .notes("notes");
-  
-  
 
+  app.get('/routeForced', function (req, res) {
+    var TM = require("templateManager").TemplateManager;
+    var man = new TM();
+    
+    var error = man.generateAll({
+      name: "Test",
+      manifest: {
+        name: "Test",
+        version: "0.1.0",
+        description: "My Test App"
+      },
+      app: {
+        nodeDelete: {
+          forbidden: true
+        }
+      }
+    }, true);
+    if (error) {
+      res.status(error.errorNum);
+      res.body = error.errorMessage;
+    }
+  })
+  .nickname("name")
+  .summary("summary")
+  .notes("notes");  
   
   app.start(applicationContext);
 }());
