@@ -45,4 +45,12 @@ exports.Store = function() {
   this.patchNode = function(id, data) {
     return nodes.update(id, data);
   };
+  
+  this.getEdgeCollection = function() {
+    return edges;
+  };
+  
+  this.getNodeCollection = function() {
+    return nodes;
+  };
 };

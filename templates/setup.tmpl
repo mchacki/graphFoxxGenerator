@@ -1,0 +1,24 @@
+(function() {
+  "use strict";
+
+  var console = require("console");
+  var arangodb = require("org/arangodb");
+  var db = arangodb.db;
+
+  var nodesName = "<%=nodeCollection %>";
+  var edgesName = "<%=edgeCollection %>";
+
+  if (db._collection(nodesName) === null) {
+    db._create(nodesName);
+  }
+  else {
+    console.warn("collection '%s' already exists. Leaving it untouched.", nodesName);
+  }
+
+  if (db._collection(edgesName) === null) {
+    db._createEdgeCollection(edgesName);
+  } else {
+    console.warn("Edge-collection '%s' already exists. Leaving it untouched.", edgesName);
+  }
+
+}());
