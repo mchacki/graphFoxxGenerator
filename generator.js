@@ -4,11 +4,26 @@
     app = new FoxxApplication();
 
   app.registerRepository(
-    "comfiguration", {
-      repository: "repositories/comfiguration"
+    "configuration", {
+      repository: "repositories/configuration"
     }
   );
   
+  app.post("/app", function (req, res) {
+    
+  });
+  
+  app.patch("/app/:name", function (req, res) {
+  
+  });
+  
+  app.get("/app", function (req, res) {
+  
+  });
+  
+  app.get("/app/:name", function (req, res) {
+    
+  });
 
   app.get('/route', function (req, res) {
     var TM = require("lib/templateManager").TemplateManager;
