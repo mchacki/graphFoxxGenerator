@@ -4,8 +4,8 @@
     app = new FoxxApplication();
 
   app.registerRepository(
-    "geraffel", {
-      repository: "repositories/templateBuilder"
+    "comfiguration", {
+      repository: "repositories/comfiguration"
     }
   );
   
@@ -103,34 +103,5 @@
     }
   });
   
-  /*
-  app.post('/repo', function (req, res) {
-    //repositories.geraffel.collection = require("internal").db._collection("Test234");
-    //res.json(repositories.geraffel);
-    require("console").log("%s", JSON.stringify(req));
-    require("console").log("%s", JSON.stringify(req.body()));
-    //res.json("Hallo Welt");
-    
-  })
-  .nickname("name")
-  .summary("summary")
-  .notes("notes");
-  
-  app.post('/repo2', function (req, res) {
-    var options = {};
-    options.method = req.requestType;
-    require("console").log("%s", JSON.stringify(req));
-    options.headers = req.headers;
-    //options.headers.contentType = req.headers;
-    var url = req.protocol + "://";
-    url += req.server.address;
-    url += ":" + req.server.port;
-    url += req.url.replace("repo2", "repo");
-    var result = require("internal").download(url, "{name: \"Foxx\"}", options);
-    res.status(result.code);
-    res.body = result.body;
-    res.headers = result.headers;
-  });
-  */
   app.start(applicationContext);
 }());

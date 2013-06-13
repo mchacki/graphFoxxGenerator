@@ -47,5 +47,5 @@
       console.warn("collection '%s' already exists. Leaving it untouched.", handle);
     }
   };
-  createCollection("template_contents");
+  createCollection("comfiguration");
 }());
