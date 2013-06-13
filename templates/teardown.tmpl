@@ -1,4 +1,10 @@
 (function() {
   "use strict";
-
+  <% if(remove) {%>
+    var arangodb = require("org/arangodb");
+    var db = arangodb.db;
+    
+    db._drop("<%=nodeCollection %>");
+    db._drop("<%=edgeCollection %>");
+  <%}%>
 }());
