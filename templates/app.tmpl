@@ -2,19 +2,34 @@
   "use strict";
   var FoxxApplication = require("org/arangodb/foxx").Application,
     app = new FoxxApplication();
-    <%= man.nodesCreateFunction(config.nodeCreate) %>
     
-    <%= man.nodesPatchFunction(config.nodePatch) %>
-    
-    <%= man.nodesDeleteFunction(config.nodeDelete) %>
-    
-    <%= man.edgesCreateFunction(config.edgeCreate) %>
-    
-    <%= man.edgesPatchFunction(config.edgePatch) %>
-    
-    <%= man.edgesDeleteFunction(config.edgeDelete) %>
+  app.registerRepository(
+    "nodes",
+    {
+      repository: "repositories/nodes"
+    }
+  );
   
-    <%= man.edgesForNodeDeleteFunction(config.edgeForNodeDelete) %>
+  app.registerRepository(
+    "edges",
+    {
+      repository: "repositories/edges"
+    }
+  );
+  
+  <%= man.nodesCreateFunction(config.nodeCreate) %>
+  
+  <%= man.nodesPatchFunction(config.nodePatch) %>
+  
+  <%= man.nodesDeleteFunction(config.nodeDelete) %>
+  
+  <%= man.edgesCreateFunction(config.edgeCreate) %>
+  
+  <%= man.edgesPatchFunction(config.edgePatch) %>
+  
+  <%= man.edgesDeleteFunction(config.edgeDelete) %>
+  
+  <%= man.edgesForNodeDeleteFunction(config.edgeForNodeDelete) %>
   
   app.start(applicationContext);
 }());

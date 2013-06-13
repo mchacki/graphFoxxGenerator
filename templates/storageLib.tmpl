@@ -1,0 +1,44 @@
+var internal = require("internal");
+var db = internal.db;
+
+exports.Store = function() {
+  "use strict";
+
+  var edges = db._collection("<%=edgeCollection %>");
+  var nodes = db._collection("<%=nodeCollection %>");
+
+  ////////////////////////////////////
+  // Public Functions               //
+  ////////////////////////////////////
+
+  this.insertEdge = function(data) {
+    var edge = JSON.parse(data);
+    var from = edge._from;
+    var to = edge._to;
+    return edges.insertEdge(from, to, edge);
+  };
+  
+  this.deleteEdge = function(id) {
+    return "Works";
+  };
+  
+  this.deleteEdgesForNode = function(id) {
+    return "Works";
+  };
+  
+  this.patchEdge = function(id, data) {
+    return "Works";
+  };
+  
+  this.createNode = function(data) {
+    return nodes.save(data);
+  };
+  
+  this.deleteNode = function(id) {
+    return "Works";
+  };
+  
+  this.patchNode = function(id, data) {
+    return "Works";
+  };
+};

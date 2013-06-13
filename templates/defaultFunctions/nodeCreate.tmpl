@@ -1,1 +1,2 @@
-require("console").log("Not implemented yet");
+var store = new require("lib/storage").Store();
+res.json(store.insertNode(req.body()));

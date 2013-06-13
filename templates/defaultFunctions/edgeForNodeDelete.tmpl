@@ -1,1 +1,3 @@
-require("console").log("Not implemented yet");
+var store = new require("lib/storage").Store();
+var ndoeId = req.params("id");
+res.json(store.deleteEdgesForNode(nodeId));

@@ -7,7 +7,7 @@
     "/": "generator.js"
   },
   
-  "lib": "lib",
+  "lib": ".",
 
   
   "files": {

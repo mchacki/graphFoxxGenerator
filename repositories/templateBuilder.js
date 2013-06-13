@@ -36,10 +36,12 @@
   var _ = require("underscore"),
     Foxx = require("org/arangodb/foxx"),
     db = require("internal").db,
+    col = db._collection("Test234"),
     Template_Repository = Foxx.Repository.extend({
-      
+
     });
-    
+    //Template_Repository.collection = col;
+    //require("console").log(col);
   exports.Repository = Template_Repository;
   
 }());
