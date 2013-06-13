@@ -62,13 +62,22 @@
   
   
   app.get('/test', function (req, res) {
+    var overwrite = true;
+    var name = "Test";
     var TM = require("lib/templateManager").TemplateManager;
     var man = new TM();
-    
+    var fm = require("org/arangodb/foxx-manager");
+    if (overwrite) {
+      try {
+        fm.uninstallApp("/" + name);
+      } catch (e) {
+        require("console").warn("Did uninstall App mounted on: /" + name);
+      }
+    };
     var error = man.generateAll({
-      name: "Test",
+      name: name,
       manifest: {
-        name: "Test",
+        name: name,
         version: "0.1.0",
         description: "My Test App"
       },
@@ -77,10 +86,19 @@
         edges: "e",
         nodes: "v"
       }
-    }, true);
+    }, overwrite);
     if (error) {
       res.status(error.errorNum);
       res.body = error.errorMessage;
+    } else {
+      try {
+        fm.installApp(name, "/" + name);
+        res.status(201);
+        res.body = "App generated successfully";
+      } catch(e) {
+        res.status(e.errorNum);
+        res.body = e.errorMessage;
+      }
     }
   });
   

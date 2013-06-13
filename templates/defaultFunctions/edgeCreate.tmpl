@@ -1,2 +1,3 @@
-var store = new require("lib/storage").Store();
-res.json(store.insertEdge(req.body()));
+var Store = require("lib/storage").Store;
+var s = new Store();
+res.json(s.insertEdge(req.body()));

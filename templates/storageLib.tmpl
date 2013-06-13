@@ -1,5 +1,6 @@
 var internal = require("internal");
 var db = internal.db;
+var _ = require("underscore");
 
 exports.Store = function() {
   "use strict";
@@ -19,26 +20,29 @@ exports.Store = function() {
   };
   
   this.deleteEdge = function(id) {
-    return "Works";
+    return edge.remove(id);
   };
   
   this.deleteEdgesForNode = function(id) {
-    return "Works";
+    var es = edges.edges(id);
+    _.each(es, function(e) {
+      edges.remove(e._id);
+    });
   };
   
   this.patchEdge = function(id, data) {
-    return "Works";
+    return edges.update(id, data);
   };
   
-  this.createNode = function(data) {
+  this.insertNode = function(data) {
     return nodes.save(data);
   };
   
   this.deleteNode = function(id) {
-    return "Works";
+    return nodes.remove(id);
   };
   
   this.patchNode = function(id, data) {
-    return "Works";
+    return nodes.update(id, data);
   };
 };
