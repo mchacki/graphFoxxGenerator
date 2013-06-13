@@ -2,20 +2,6 @@
   "use strict";
   var FoxxApplication = require("org/arangodb/foxx").Application,
     app = new FoxxApplication();
-    
-  app.registerRepository(
-    "nodes",
-    {
-      repository: "repositories/nodes"
-    }
-  );
-  
-  app.registerRepository(
-    "edges",
-    {
-      repository: "repositories/edges"
-    }
-  );
   
   <%= man.nodesCreateFunction(config.nodeCreate) %>
   

@@ -60,6 +60,30 @@
   .summary("summary")
   .notes("notes");  
   
+  
+  app.get('/test', function (req, res) {
+    var TM = require("lib/templateManager").TemplateManager;
+    var man = new TM();
+    
+    var error = man.generateAll({
+      name: "Test",
+      manifest: {
+        name: "Test",
+        version: "0.1.0",
+        description: "My Test App"
+      },
+      app: {},
+      collections: {
+        edges: "e",
+        nodes: "v"
+      }
+    }, true);
+    if (error) {
+      res.status(error.errorNum);
+      res.body = error.errorMessage;
+    }
+  });
+  
   /*
   app.post('/repo', function (req, res) {
     //repositories.geraffel.collection = require("internal").db._collection("Test234");
