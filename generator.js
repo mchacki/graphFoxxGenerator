@@ -85,7 +85,8 @@
       collections: {
         edges: "e",
         nodes: "v"
-      }
+      },
+      teardown: true
     }, overwrite);
     if (error) {
       res.status(error.errorNum);

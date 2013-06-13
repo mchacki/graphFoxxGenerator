@@ -16,11 +16,11 @@ exports.Store = function() {
     var edge = JSON.parse(data);
     var from = edge._from;
     var to = edge._to;
-    return edges.insertEdge(from, to, edge);
+    return edges.save(from, to, edge);
   };
   
   this.deleteEdge = function(id) {
-    return edge.remove(id);
+    return edges.remove(id);
   };
   
   this.deleteEdgesForNode = function(id) {
@@ -31,11 +31,11 @@ exports.Store = function() {
   };
   
   this.patchEdge = function(id, data) {
-    return edges.update(id, data);
+    return edges.update(id, JSON.parse(data));
   };
   
   this.insertNode = function(data) {
-    return nodes.save(data);
+    return nodes.save(JSON.parse(data));
   };
   
   this.deleteNode = function(id) {
@@ -43,7 +43,7 @@ exports.Store = function() {
   };
   
   this.patchNode = function(id, data) {
-    return nodes.update(id, data);
+    return nodes.update(id, JSON.parse(data));
   };
   
   this.getEdgeCollection = function() {
