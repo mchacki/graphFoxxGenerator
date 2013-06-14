@@ -93,7 +93,28 @@
       },
       
       buildConfig: function(name) {
-      
+        var doc = this.collection.document(name);
+        var result = {};
+        
+        //Build general Config
+        result.name = doc.name;
+        result.teardown = doc.teardown;
+        
+        // Build the Manifest config
+        result.manifest = {};
+        result.manifest.name = doc.name;
+        result.manifest.version = doc.version;
+        result.manifest.description = doc.description;
+        
+        // Build the App config
+        result.app = {};
+        
+        // Build the collection config
+        result.collections = {};
+        result.collections.edges = doc.edgeCollection;
+        result.collections.nodes = doc.nodeCollection;
+        
+        return result;
       }
     });
 

@@ -38,7 +38,13 @@
   
   app.del("/app/:name", function(req, res) {
     var r = require("lib/responder");
-    r.sendOk(repositories.configuration.del(req.params("name")));
+    r.sendOk(res, repositories.configuration.del(req.params("name")));
+  });
+
+
+  app.get("/config/:name", function(req, res) {
+    var r = require("lib/responder");
+    r.sendOk(res, repositories.configuration.buildConfig(req.params("name")));
   });
 
   app.get('/route', function (req, res) {
@@ -106,24 +112,12 @@
         require("console").warn("Did uninstall App mounted on: /" + name);
       }
     };
-    var error = man.generateAll({
-      name: name,
-      manifest: {
-        name: name,
-        version: "0.1.0",
-        description: "My Test App"
-      },
-      app: {},
-      collections: {
-        edges: "e",
-        nodes: "v"
-      },
-      teardown: true
-    }, overwrite);
+    var error = man.generateAll(repositories.configuration.buildConfig("Test"), overwrite);
     if (error) {
       res.status(error.errorNum);
       res.body = error.errorMessage;
     } else {
+      fm.scanAppDirectory();
       try {
         fm.installApp(name, "/" + name);
         r.sendCreated(res, "App generated successfully");
