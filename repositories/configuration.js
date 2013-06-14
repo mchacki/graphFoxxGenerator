@@ -92,6 +92,19 @@
         return this.collection.remove(name);
       },
       
+      action: function(app, actName, actCode) {
+        var data = {};
+        if (actCode.toLowerCase() === "forbidden") {
+          data[actName] = {forbidden: true};
+        } else if (actCode.toLowerCase() === "default"){
+          data[actName] = {default: true};
+        } else {
+          data[actName] = actCode;
+        }
+        return this.collection.update(app, data);
+      },
+      
+      
       buildConfig: function(name) {
         var doc = this.collection.document(name);
         var result = {};
@@ -108,6 +121,13 @@
         
         // Build the App config
         result.app = {};
+        result.app.nodeCreate = doc.nodeCreate;
+        result.app.nodePatch = doc.nodePatch;
+        result.app.nodeDelete = doc.nodeDelete;
+        result.app.edgeCreate = doc.edgeCreate;
+        result.app.edgePatch = doc.edgePatch;
+        result.app.edgeDelete = doc.edgeDelete;
+        result.app.edgeForNodeDelete = doc.edgeForNodeDelete;
         
         // Build the collection config
         result.collections = {};

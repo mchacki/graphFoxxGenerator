@@ -41,10 +41,53 @@
     r.sendOk(res, repositories.configuration.del(req.params("name")));
   });
 
+  app.patch("/app/:appname/action/:actionname", function(req, res) {
+    var r = require("lib/responder");
+    var content = JSON.parse(req.body());
+    var app = req.params("appname");
+    var name = req.params("actionname");
+    var action = content.action;
+    var result = repositories.configuration.action(app, name, action);
+    r.sendOk(res, result);
+  });
+
 
   app.get("/config/:name", function(req, res) {
     var r = require("lib/responder");
     r.sendOk(res, repositories.configuration.buildConfig(req.params("name")));
+  });
+
+  app.post("/generate/:name", function(req, res) {
+    var content = JSON.parse(req.body());
+    var overwrite = content.overwrite || false;
+    var name = req.params("name");
+    var TM = require("lib/templateManager").TemplateManager;
+    var man = new TM();
+    var fm = require("org/arangodb/foxx-manager");
+    var r = require("lib/responder");
+    var appPath = "/" + name;
+    if (overwrite) {
+      try {
+        fm.uninstallApp(appPath);
+      } catch (e) {
+        require("console").warn("Did uninstall App mounted on: /" + name);
+      }
+    };
+    var config = repositories.configuration.buildConfig(name)
+    var error = man.generateAll(config, overwrite);
+    if (error) {
+      res.status(error.errorNum);
+      res.body = error.errorMessage;
+    } else {
+      fm.scanAppDirectory();
+      try {
+        fm.installApp(name, appPath);
+        r.sendCreated(res, {path: appPath});
+      } catch(e) {
+        res.status(e.errorNum);
+        res.body = e.errorMessage;
+      }
+    }
   });
 
   app.get('/route', function (req, res) {
