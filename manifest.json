@@ -7,6 +7,9 @@
     "/": "generator.js"
   },
   
+  "setup": "scripts/setup.js",
+  "teardown": "scripts/teardown.js",
+  
   "lib": ".",
 
   

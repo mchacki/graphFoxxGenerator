@@ -10,19 +10,35 @@
   );
   
   app.post("/app", function (req, res) {
-    
+    var r = require("lib/responder");
+    try {
+      var result = repositories
+        .configuration
+        .create(JSON.parse(req.body()));
+      r.sendCreated(res, result);
+    } catch (err) {
+      r.sendBadParam(res, err);
+    }
   });
   
   app.patch("/app/:name", function (req, res) {
-  
+    var r = require("lib/responder");
+    r.sendOk(res, repositories.configuration.update(req.params("name"), req.body()));
   });
   
   app.get("/app", function (req, res) {
-  
+    var r = require("lib/responder");
+    r.sendOk(res, repositories.configuration.keys());
   });
   
   app.get("/app/:name", function (req, res) {
-    
+    var r = require("lib/responder");
+    r.sendOk(res, repositories.configuration.info(req.params("name")));
+  });
+  
+  app.del("/app/:name", function(req, res) {
+    var r = require("lib/responder");
+    r.sendOk(repositories.configuration.del(req.params("name")));
   });
 
   app.get('/route', function (req, res) {
@@ -82,6 +98,7 @@
     var TM = require("lib/templateManager").TemplateManager;
     var man = new TM();
     var fm = require("org/arangodb/foxx-manager");
+    var r = require("lib/responder");
     if (overwrite) {
       try {
         fm.uninstallApp("/" + name);
@@ -109,14 +126,14 @@
     } else {
       try {
         fm.installApp(name, "/" + name);
-        res.status(201);
-        res.body = "App generated successfully";
+        r.sendCreated(res, "App generated successfully");
       } catch(e) {
         res.status(e.errorNum);
         res.body = e.errorMessage;
       }
     }
   });
+
   
   app.start(applicationContext);
 }());
