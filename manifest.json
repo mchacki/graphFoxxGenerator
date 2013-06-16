@@ -12,8 +12,43 @@
   
   "lib": ".",
 
+  "assets": {
+    
+    "index.html": {
+      "files": [
+        "assets/index.html"
+      ]
+    },
+    
+    "app.js": {
+      "files": [
+        "assets/js/third_party/jquery/**",
+        "assets/js/third_party/underscore/**",
+        "assets/js/third_party/backbone/**",
+        "assets/js/third_party/bootstrap/**",
+        "assets/js/third_party/ejs/**",
+        "assets/js/models/**",
+        "assets/js/collections/**",
+        "assets/js/views/**",
+        "assets/js/router/**"
+      ]
+    },
+    
+    "style.css": {
+      "files": [
+        "assets/css/third_party/bootstrap/bootstrap.css",
+        "assets/css/style.css"
+      ]
+      
+    }
+    
+    
+    
+  },
   
   "files": {
-    "js_templates": "templates"
+    "js_templates": "templates",
+    "templates": "assets/templates",
+    "img": "assets/images"
   }
 }
