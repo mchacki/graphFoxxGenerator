@@ -1,4 +1,3 @@
-var Store = require("lib/storage").Store;
-var s = new Store();
+var s = require("lib/storage");
 var edgeId = req.params("id");
 res.json(s.deleteEdge(edgeId));

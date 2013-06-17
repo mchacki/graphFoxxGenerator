@@ -1,56 +1,52 @@
 var internal = require("internal");
 var db = internal.db;
 var _ = require("underscore");
+var edges = db._collection("<%=edgeCollection %>");
+var nodes = db._collection("<%=nodeCollection %>");
 
-exports.Store = function() {
-  "use strict";
+////////////////////////////////////
+// Public Functions               //
+////////////////////////////////////
 
-  var edges = db._collection("<%=edgeCollection %>");
-  var nodes = db._collection("<%=nodeCollection %>");
+exports.insertEdge = function(data) {
+  var edge = JSON.parse(data);
+  var from = edge._from;
+  var to = edge._to;
+  return edges.save(from, to, edge);
+};
 
-  ////////////////////////////////////
-  // Public Functions               //
-  ////////////////////////////////////
+exports.deleteEdge = function(id) {
+  return edges.remove(id);
+};
 
-  this.insertEdge = function(data) {
-    var edge = JSON.parse(data);
-    var from = edge._from;
-    var to = edge._to;
-    return edges.save(from, to, edge);
-  };
-  
-  this.deleteEdge = function(id) {
-    return edges.remove(id);
-  };
-  
-  this.deleteEdgesForNode = function(id) {
-    var es = edges.edges(id);
-    _.each(es, function(e) {
-      edges.remove(e._id);
-    });
-  };
-  
-  this.patchEdge = function(id, data) {
-    return edges.update(id, JSON.parse(data));
-  };
-  
-  this.insertNode = function(data) {
-    return nodes.save(JSON.parse(data));
-  };
-  
-  this.deleteNode = function(id) {
-    return nodes.remove(id);
-  };
-  
-  this.patchNode = function(id, data) {
-    return nodes.update(id, JSON.parse(data));
-  };
-  
-  this.getEdgeCollection = function() {
-    return edges;
-  };
-  
-  this.getNodeCollection = function() {
-    return nodes;
-  };
+exports.deleteEdgesForNode = function(key) {
+  var id = "<%=nodeCollection %>/" + key;
+  var es = edges.edges(id);
+  _.each(es, function(e) {
+    edges.remove(e._id);
+  });
+};
+
+exports.patchEdge = function(id, data) {
+  return edges.update(id, JSON.parse(data));
+};
+
+exports.insertNode = function(data) {
+  return nodes.save(JSON.parse(data));
+};
+
+exports.deleteNode = function(id) {
+  return nodes.remove(id);
+};
+
+exports.patchNode = function(id, data) {
+  return nodes.update(id, JSON.parse(data));
+};
+
+exports.getEdgeCollection = function() {
+  return edges;
+};
+
+exports.getNodeCollection = function() {
+  return nodes;
 };

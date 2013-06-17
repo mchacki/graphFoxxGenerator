@@ -1,3 +1,2 @@
-var Store = require("lib/storage").Store;
-var s = new Store();
+var s = require("lib/storage");
 res.json(s.insertNode(req.body()));
