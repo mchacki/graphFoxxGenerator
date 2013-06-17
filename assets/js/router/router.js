@@ -31,4 +31,5 @@ var app = app || {};
 
 	app.router = new GeneratorRouter();
 	Backbone.history.start();
+  app.loadedApp = "Test";
 })();

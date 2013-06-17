@@ -2,7 +2,7 @@
 var tipTmpl = new EJS({url: 'templates/tooltipLink.ejs'});
 var strTmpl = new EJS({url: 'templates/storageInfo.ejs'});
 %>
-<form>
+<form action="javascript:void(0);">
   <fieldset>
     <legend>Edit <%=actionName %></legend>
     <label class="radio">
@@ -15,7 +15,7 @@ var strTmpl = new EJS({url: 'templates/storageInfo.ejs'});
     </label>
     <label class="radio">
       <input type="radio" name="optUse" id="own" value="own" <%=selected === "own"?"checked":""%>>
-      Write your own function:
+      Write a custom function:
     </label>
     <div class="ownFunction" style="display:<%=selected === "own"?"block":"none"%>">
       <div id="functionHeader">

@@ -15,7 +15,8 @@ $(function () {
       "mouseout .tooltipLink": "hideTip",
 			"mouseover .popoverLink": "showPopover",
       "mouseout .popoverLink": "hidePopover",
-      "click input[type=radio]": "selectOption"
+      "click input[type=radio]": "selectOption",
+      "submit form": "submitAction"
 		},
     
     selectOption: function (event) {
@@ -43,8 +44,35 @@ $(function () {
       $(event.currentTarget).popover("hide");
     },
     
+    
+    submitAction: function (event) {
+      var content = $("input:radio[name=optUse]:checked").val();
+      if (content === "own") {
+        var editor = ace.edit("functionEditor");
+        content = editor.getValue();
+      }
+      var data = {
+        action: content
+      };
+      $.ajax({
+        type: "PATCH",
+        url: "app/" + app.loadedApp + "/action/" + this.actionName,
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        processData: false,
+        success: function(data) {
+          alert("Success");
+        },
+        error: function(data) {
+          alert("Fail");
+        }
+      });
+      event.stopPropagation();
+    },
+    
 		// Re-render the navigation menu
 		render: function (name, type) {
+      this.actionName = name;
       type = type || "default";
       $(this.el).html(this.template.render({actionName: name, selected: type}));
       var editor = ace.edit("functionEditor");
