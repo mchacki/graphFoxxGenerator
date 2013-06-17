@@ -49,6 +49,7 @@
   "files": {
     "js_templates": "templates",
     "templates": "assets/templates",
-    "img": "assets/images"
+    "img": "assets/images",
+    "ace": "assets/js/third_party/ace"
   }
 }

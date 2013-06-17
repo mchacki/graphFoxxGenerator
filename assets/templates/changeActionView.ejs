@@ -1,0 +1,32 @@
+<%
+var tipTmpl = new EJS({url: 'templates/tooltipLink.ejs'});
+var strTmpl = new EJS({url: 'templates/storageInfo.ejs'});
+%>
+<form>
+  <fieldset>
+    <legend>Edit <%=actionName %></legend>
+    <label class="radio">
+      <input type="radio" name="optUse" id="default" value="default" <%=selected === "default"?"checked":""%>>
+      Use the default for this function.
+    </label>
+    <label class="radio">
+      <input type="radio" name="optUse" id="forbidden" value="forbidden" <%=selected === "forbidden"?"checked":""%>>
+      Forbid this function.
+    </label>
+    <label class="radio">
+      <input type="radio" name="optUse" id="own" value="own" <%=selected === "own"?"checked":""%>>
+      Write your own function:
+    </label>
+    <div class="ownFunction" style="display:<%=selected === "own"?"block":"none"%>">
+      <div id="functionHeader">
+        <span class="function">function (
+          <%=tipTmpl.render({name: "req", tip: "The request object"}) %>,
+          <%=tipTmpl.render({name: "res", tip: "The response object"}) %>) { <br />
+          var <%=strTmpl.text %> = require("lib/storage");</span>
+      </div>
+      <div id="functionEditor" style="height:360px"></div>
+      <div id="functionFooter">}</div>
+    </div>
+    <button id="submitButton" class="btn btn-success">Submit</button>
+  </fieldset>
+</form>

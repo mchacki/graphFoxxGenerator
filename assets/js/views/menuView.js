@@ -18,9 +18,10 @@ $(function () {
       var id = $(event.currentTarget).attr("id");
       if (id !== undefined) {
         console.log("Click: " + id);
-        this.render(id);
+        app.router.navigate("edit/" + $(event.currentTarget).attr("id"), {trigger: true});
+        //this.render(id);
       }
-      //app.router.navigate("collection/" + $(event.currentTarget).attr("id"), {trigger: true});
+      //
     },
     
 		// Re-render the navigation menu
