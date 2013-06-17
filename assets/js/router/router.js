@@ -10,6 +10,7 @@ var app = app || {};
     initialize: function() {
       this.menu = new app.MenuView();
       this.changeAction = new app.ChangeActionView();
+      this.changeMeta = new app.ChangeMetaView();
     },
     
 		routes: {
@@ -21,15 +22,19 @@ var app = app || {};
       this.menu.render(name);
       if (name !== "meta") {
         this.changeAction.render(name, "own");
+      } else if (name === "meta") {
+        this.changeMeta.render();
       }
     },
 
     displayLoad: function () {
       this.menu.render("meta");
+      this.changeMeta.render();
     }
 	});
-
+  
+  app.loadedApp = "Test";
 	app.router = new GeneratorRouter();
 	Backbone.history.start();
-  app.loadedApp = "Test";
+  
 })();

@@ -1,0 +1,44 @@
+<form action="javascript:void(0);" class="form-horizontal" id="metaEdit">
+  <fieldset>
+    <legend><%=!!name ? "Edit " + name : "Create new Widget"%></legend>
+    <div class="control-group">
+      <label class="control-label">Widget Name:</label>
+      <div class="controls">
+        <% if (!!name) { %>
+          <span class="fixedName"><%=name %></span>
+        <% } else {%>
+          <input id="name" type="text" placeholder="Name of the App">
+        <% } %>
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">Description</label>
+      <div class="controls">
+        <input id="description" name="description" type="text" placeholder="Description">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">Version</label>
+      <div class="controls">
+        <input id="version" name="version" type="text" placeholder="Version x.y.z">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">Node Collection</label>
+      <div class="controls">
+        <input id="nodeCollection" name="nodeCollection" type="text" placeholder="Node Collection">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">Edge Collection</label>
+      <div class="controls">
+        <input id="edgeCollection" name="edgeCollection"type="text" placeholder="Edge Collection">
+      </div>
+    </div>
+    <div class="control-group">
+      <div class="controls">
+        <button id="submitButton" class="btn btn-success">Submit</button>
+      </div>
+    </div>
+  </fieldset>
+</form>

@@ -73,6 +73,7 @@
       update: function(name, data) {
         data = parseData(data);
         delete data.name;
+        require("console").log(JSON.stringify(data));
         return this.collection.update(name, data);
       },
       

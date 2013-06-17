@@ -19,9 +19,8 @@ $(function () {
       if (id !== undefined) {
         console.log("Click: " + id);
         app.router.navigate("edit/" + $(event.currentTarget).attr("id"), {trigger: true});
-        //this.render(id);
       }
-      //
+
     },
     
 		// Re-render the navigation menu

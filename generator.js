@@ -23,7 +23,7 @@
   
   app.patch("/app/:name", function (req, res) {
     var r = require("lib/responder");
-    r.sendOk(res, repositories.configuration.update(req.params("name"), req.body()));
+    r.sendOk(res, repositories.configuration.update(req.params("name"), JSON.parse(req.body())));
   });
   
   app.get("/app", function (req, res) {

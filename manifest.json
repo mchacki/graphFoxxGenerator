@@ -29,6 +29,7 @@
         "assets/js/third_party/ejs/**",
         "assets/js/models/**",
         "assets/js/collections/**",
+        "assets/js/lib/**",
         "assets/js/views/**",
         "assets/js/router/**"
       ]

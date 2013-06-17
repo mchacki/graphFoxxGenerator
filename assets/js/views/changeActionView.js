@@ -16,7 +16,7 @@ $(function () {
 			"mouseover .popoverLink": "showPopover",
       "mouseout .popoverLink": "hidePopover",
       "click input[type=radio]": "selectOption",
-      "submit form": "submitAction"
+      "submit form#action": "submitAction"
 		},
     
     selectOption: function (event) {
