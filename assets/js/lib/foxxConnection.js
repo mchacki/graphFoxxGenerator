@@ -5,23 +5,37 @@ var app = app || {};
   
   app.connection = {};
   
-  var sendRequest = function (type, route, data) {
+	var successHandler = function (success) {
+		if (success) {
+			return success;
+		}
+		return function() {
+			alert("Success");
+		}
+	};
+	
+	var errorHandler = function (error) {
+		if (error) {
+			return error;
+		}
+		return function() {
+			alert("Fail");
+		}
+	};
+	
+  var sendRequest = function (type, route, data, success, error) {
     $.ajax({
       type: type,
       url: route,
       data: JSON.stringify(data),
       contentType: "application/json",
       processData: false,
-      success: function(data) {
-        alert("Success");
-      },
-      error: function(data) {
-        alert("Fail");
-      }
+      success: successHandler(success),
+      error: errorHandler(error)
     });
   };
   
-  app.connection.createApp = function (name, description, version, nodes, edges) {
+  app.connection.createApp = function (name, description, version, nodes, edges, success, error) {
     var data = {
       name: name,
       description: description,
@@ -29,10 +43,10 @@ var app = app || {};
       nodeCollection: nodes,
       edgeCollection: edges
     };
-    sendRequest("POST", "app", data);
+    sendRequest("POST", "app", data, success, error);
   };
   
-  app.connection.updateMetadata = function (description, version, nodes, edges) {
+  app.connection.updateMetadata = function (description, version, nodes, edges, success, error) {
     var name = app.loadedApp;
     var data = {
       description: description,
@@ -40,23 +54,11 @@ var app = app || {};
       nodeCollection: nodes,
       edgeCollection: edges
     };
-    sendRequest("PATCH", "app/" + name, data);
+    sendRequest("PATCH", "app/" + name, data, success, error);
   };
   
-  app.connection.updateAction = function(actionName, action) {
+  app.connection.updateAction = function(actionName, action, success, error) {
     var name = app.loadedApp;
-    $.ajax({
-      type: "PATCH",
-      url: "app/" + name + "/action/" + actionName,
-      data: JSON.stringify(action),
-      contentType: "application/json",
-      processData: false,
-      success: function(data) {
-        alert("Success");
-      },
-      error: function(data) {
-        alert("Fail");
-      }
-    });
+		sendRequest("PATCH", "app/" + name + "/action/" + actionName, action, success, error);
   };
 }());

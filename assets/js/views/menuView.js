@@ -25,7 +25,7 @@ $(function () {
     
 		// Re-render the navigation menu
 		render: function (selection) {
-      $(this.el).html(this.template.text);
+      $(this.el).html(this.template.render({}));
       $("#" + selection).toggleClass("active");
 			return this;
 		}

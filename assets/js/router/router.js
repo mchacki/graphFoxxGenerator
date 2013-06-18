@@ -20,18 +20,24 @@ var app = app || {};
 		},
 
     displayEdit: function (name) {
-      this.menu.render(name);
-      switch (name) {
-        case "new":
-          this.createNew.render();
-          break;
-        case "meta":
-          this.changeMeta.render();
-          break;
-        default:
-          this.changeAction.render(name);
-          break;
-      }
+			if (!app.loadedApp && name !== "new") {
+				alert("Please load an App first");
+				app.router.navigate("edit/new", {trigger: true});
+			} else {
+	      this.menu.render(name);
+	      switch (name) {
+	        case "new":
+	          this.createNew.render();
+	          break;
+	        case "meta":
+	          this.changeMeta.render();
+	          break;
+	        default:
+	          this.changeAction.render(name);
+	          break;
+	      }
+			}
+      
     },
 
     displayLoad: function () {
@@ -40,7 +46,6 @@ var app = app || {};
     }
 	});
   
-  app.loadedApp = "Test";
 	app.router = new GeneratorRouter();
 	Backbone.history.start();
   

@@ -2,6 +2,7 @@
   <li class="nav-header">Options</li>
   <li id="new"><a>New...</a></li>
   <li id="load"><a>Load...</a></li>
+  <% if (app.loadedApp) {%>
   <li class="nav-header">Edit App</li>
   <li id="meta"><a>Meta Information</a></li>
   <li class="nav-header">Actions</li>
@@ -12,4 +13,5 @@
   <li id="patchEdge"><a>patchEdge</a></li>
   <li id="deleteEdge"><a>deleteEdge</a></li>
   <li id="edgesForNode"><a>on Node Delete</a></li>
+  <% } %>
 </ul>

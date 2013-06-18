@@ -22,7 +22,9 @@ $(function () {
         var vers = $("#version").val();
         var nodes = $("#nodeCollection").val();
         var edges = $("#edgeCollection").val();
-        app.connection.createApp(name, desc, vers, nodes, edges);
+        app.connection.createApp(name, desc, vers, nodes, edges, function(data) {
+					app.loadedApp = data._key;
+				});
       };
       $("form#metaEdit").validate(valObj);
 			return this;
