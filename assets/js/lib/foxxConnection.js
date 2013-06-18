@@ -61,4 +61,8 @@ var app = app || {};
     var name = app.loadedApp;
 		sendRequest("PATCH", "app/" + name + "/action/" + actionName, action, success, error);
   };
+	
+	app.connection.getApps = function(success, error) {
+		sendRequest("GET", "app", undefined, success, error);
+	}; 
 }());

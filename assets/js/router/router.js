@@ -12,6 +12,7 @@ var app = app || {};
       this.changeAction = new app.ChangeActionView();
       this.changeMeta = new app.ChangeMetaView();
       this.createNew = new app.CreateNewView();
+			this.loadApp = new app.LoadAppView();
     },
     
 		routes: {
@@ -20,7 +21,7 @@ var app = app || {};
 		},
 
     displayEdit: function (name) {
-			if (!app.loadedApp && name !== "new") {
+			if (!app.loadedApp && name !== "new" && name !== "load") {
 				alert("Please load an App first");
 				app.router.navigate("edit/new", {trigger: true});
 			} else {
@@ -29,6 +30,9 @@ var app = app || {};
 	        case "new":
 	          this.createNew.render();
 	          break;
+					case "load":
+						this.loadApp.render();
+						break;
 	        case "meta":
 	          this.changeMeta.render();
 	          break;

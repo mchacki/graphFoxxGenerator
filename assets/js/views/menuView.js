@@ -17,7 +17,6 @@ $(function () {
     navigate: function(event) {
       var id = $(event.currentTarget).attr("id");
       if (id !== undefined) {
-        console.log("Click: " + id);
         app.router.navigate("edit/" + $(event.currentTarget).attr("id"), {trigger: true});
       }
 
