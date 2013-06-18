@@ -41,6 +41,14 @@
     r.sendOk(res, repositories.configuration.del(req.params("name")));
   });
 
+  app.get("/app/:appname/action/:actionname", function(req, res) {
+    var r = require("lib/responder");
+    var app = req.params("appname");
+    var name = req.params("actionname");
+    var result = repositories.configuration.getAction(app, name);
+    r.sendOk(res, result);
+  });
+
   app.patch("/app/:appname/action/:actionname", function(req, res) {
     var r = require("lib/responder");
     var content = JSON.parse(req.body());

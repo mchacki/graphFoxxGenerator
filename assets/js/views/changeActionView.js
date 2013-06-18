@@ -54,18 +54,32 @@ $(function () {
       var data = {
         action: content
       };
-      app.connection.updateAction(this.actionName, content);
+      app.connection.updateAction(this.actionName, data);
       event.stopPropagation();
     },
     
-		// Re-render the navigation menu
-		render: function (name, type) {
+		render: function (name) {
       this.actionName = name;
-      type = type || "default";
-      $(this.el).html(this.template.render({actionName: name, selected: type}));
-      var editor = ace.edit("functionEditor");
-      editor.getSession().setMode("ace/mode/javascript");
-      editor.setTheme("ace/theme/merbivore_soft");
+			var self = this;
+			app.connection.getActionInfo(name, function(data) {
+				var type = "";
+				var action = "";
+				if (data.default && data.default === true) {
+					type = "default";
+					action = "";
+				} else if (data.forbidden && data.forbidden === true) {
+					type = "forbidden";
+					action = "";
+				} else {
+					type = "own";
+					action = data;
+				}
+	      $(self.el).html(self.template.render({actionName: name, selected: type}));
+	      var editor = ace.edit("functionEditor");
+	      editor.getSession().setMode("ace/mode/javascript");
+	      editor.setTheme("ace/theme/merbivore_soft");
+				editor.setValue(action);
+			});
 			return this;
 		}
     

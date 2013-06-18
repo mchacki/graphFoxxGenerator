@@ -11,28 +11,40 @@
         <% } %>
       </div>
     </div>
+    <%
+    var d = "";
+    var v = "";
+    var n = "";
+    var e = "";
+    if (!!name) {
+      d = description;
+      v = version;
+      n = nodeCollection;
+      e = edgeCollection;
+    }
+    %>
     <div class="control-group">
       <label class="control-label">Description</label>
       <div class="controls">
-        <input id="description" name="description" type="text" placeholder="Description">
+        <input id="description" name="description" type="text" placeholder="Description" value="<%=d %>">
       </div>
     </div>
     <div class="control-group">
       <label class="control-label">Version</label>
       <div class="controls">
-        <input id="version" name="version" type="text" placeholder="Version x.y.z">
+        <input id="version" name="version" type="text" placeholder="Version x.y.z"value="<%=v %>">
       </div>
     </div>
     <div class="control-group">
       <label class="control-label">Node Collection</label>
       <div class="controls">
-        <input id="nodeCollection" name="nodeCollection" type="text" placeholder="Node Collection">
+        <input id="nodeCollection" name="nodeCollection" type="text" placeholder="Node Collection" value="<%=n %>">
       </div>
     </div>
     <div class="control-group">
       <label class="control-label">Edge Collection</label>
       <div class="controls">
-        <input id="edgeCollection" name="edgeCollection"type="text" placeholder="Edge Collection">
+        <input id="edgeCollection" name="edgeCollection"type="text" placeholder="Edge Collection" value="<%=e %>">
       </div>
     </div>
     <div class="control-group">

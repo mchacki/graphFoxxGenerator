@@ -65,4 +65,14 @@ var app = app || {};
 	app.connection.getApps = function(success, error) {
 		sendRequest("GET", "app", undefined, success, error);
 	}; 
+	
+	app.connection.getAppInfo = function(success, error) {
+		var name = app.loadedApp;
+		sendRequest("GET", "app/" + name, undefined, success, error);
+	}; 
+	
+	app.connection.getActionInfo = function(actionName, success, error) {
+		var name = app.loadedApp;
+		sendRequest("GET", "app/" + name + "/action/" + actionName, undefined, success, error);
+	};
 }());

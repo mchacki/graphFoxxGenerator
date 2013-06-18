@@ -105,6 +105,11 @@
         return this.collection.update(app, data);
       },
       
+			getAction: function(app, actName) {
+				var doc = this.collection.document(app);
+				return doc[actName] || {default: true};
+			},
+			
       
       buildConfig: function(name) {
         var doc = this.collection.document(name);

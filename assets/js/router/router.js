@@ -22,8 +22,7 @@ var app = app || {};
 
     displayEdit: function (name) {
 			if (!app.loadedApp && name !== "new" && name !== "load") {
-				alert("Please load an App first");
-				app.router.navigate("edit/new", {trigger: true});
+				app.router.navigate("edit/load", {trigger: true});
 			} else {
 	      this.menu.render(name);
 	      switch (name) {
