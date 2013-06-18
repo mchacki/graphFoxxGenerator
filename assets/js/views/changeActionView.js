@@ -54,19 +54,7 @@ $(function () {
       var data = {
         action: content
       };
-      $.ajax({
-        type: "PATCH",
-        url: "app/" + app.loadedApp + "/action/" + this.actionName,
-        data: JSON.stringify(data),
-        contentType: "application/json",
-        processData: false,
-        success: function(data) {
-          alert("Success");
-        },
-        error: function(data) {
-          alert("Fail");
-        }
-      });
+      app.connection.updateAction(this.actionName, content);
       event.stopPropagation();
     },
     

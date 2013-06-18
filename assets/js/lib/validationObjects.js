@@ -13,6 +13,11 @@ var app = app || {};
   valObj.messages = messages;
   
   
+  rules.name = {};
+  messages.name = {};
+  rules.name.minlength = 5;
+  messages.name.minlength = $.format("Enter at least {0} characters");
+  
   rules.description = {};
   messages.description = {};
   rules.description.minlength = 10;

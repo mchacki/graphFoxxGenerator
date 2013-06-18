@@ -3,7 +3,7 @@ var app = app || {};
 $(function () {
 	'use strict';
 
-	app.ChangeMetaView = Backbone.View.extend({
+	app.CreateNewView = Backbone.View.extend({
     
     template: new EJS({url: 'templates/changeMetaView.ejs'}),
     
@@ -13,15 +13,16 @@ $(function () {
     },
     
 		render: function () {
-      $(this.el).html(this.template.render({name: app.loadedApp}));
+      $(this.el).html(this.template.render({}));
       var valObj = app.validate.meta;
       var self = this;
       valObj.submitHandler = function () {
+        var name = $("#name").val();
         var desc = $("#description").val();
         var vers = $("#version").val();
         var nodes = $("#nodeCollection").val();
         var edges = $("#edgeCollection").val();
-        app.connection.updateMetadata(desc, vers, nodes, edges);
+        app.connection.createApp(name, desc, vers, nodes, edges);
       };
       $("form#metaEdit").validate(valObj);
 			return this;
