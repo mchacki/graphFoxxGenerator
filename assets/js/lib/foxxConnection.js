@@ -75,4 +75,13 @@ var app = app || {};
 		var name = app.loadedApp;
 		sendRequest("GET", "app/" + name + "/action/" + actionName, undefined, success, error);
 	};
+	
+	app.connection.generate = function(forced, success, error) {
+		var name = app.loadedApp;
+		var body = {};
+		if (forced) {
+			body.overwrite = true;
+		}
+		sendRequest("POST", "generate/" + name, body, success, error);
+	};
 }());

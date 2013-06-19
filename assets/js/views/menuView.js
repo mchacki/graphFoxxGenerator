@@ -11,7 +11,8 @@ $(function () {
     
     
 		events: {
-			"click li": "navigate"
+			"click li": "navigate",
+			"click #generate": "generate"
 		},
     
     navigate: function(event) {
@@ -21,6 +22,12 @@ $(function () {
       }
 
     },
+		
+		generate: function() {
+			var info = new app.GenerateInfoView();
+			info.render();
+			app.connection.generate(false, info.displaySuccess, info.displayError);
+		},
     
 		// Re-render the navigation menu
 		render: function (selection) {
