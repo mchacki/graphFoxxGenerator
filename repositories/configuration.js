@@ -120,26 +120,35 @@
         result.teardown = doc.teardown;
         
         // Build the Manifest config
-        result.manifest = {};
+				var manifest = {};
+        result.manifest = manifest;
         result.manifest.name = doc.name;
         result.manifest.version = doc.version;
         result.manifest.description = doc.description;
         
         // Build the App config
-        result.app = {};
-        result.app.nodeCreate = doc.nodeCreate;
-        result.app.nodePatch = doc.nodePatch;
-        result.app.nodeDelete = doc.nodeDelete;
-        result.app.edgeCreate = doc.edgeCreate;
-        result.app.edgePatch = doc.edgePatch;
-        result.app.edgeDelete = doc.edgeDelete;
-        result.app.edgeForNodeDelete = doc.edgeForNodeDelete;
+				var app = {};
+        result.app = app;
+        app.nodeCreate = doc.nodeCreate;
+        app.nodePatch = doc.nodePatch;
+        app.nodeDelete = doc.nodeDelete;
+        app.edgeCreate = doc.edgeCreate;
+        app.edgePatch = doc.edgePatch;
+        app.edgeDelete = doc.edgeDelete;
+        app.edgeForNodeDelete = doc.edgeForNodeDelete;
         
         // Build the collection config
-        result.collections = {};
-        result.collections.edges = doc.edgeCollection;
-        result.collections.nodes = doc.nodeCollection;
+				var collections = {};
+        result.collections = collections;
+        collections.edges = doc.edgeCollection;
+        collections.nodes = doc.nodeCollection;
         
+				// Build the assets config
+				var assets = {};
+				result.assets = assets;
+				assets.index = {};
+				assets.index.name = doc.name;
+				
         return result;
       }
     });

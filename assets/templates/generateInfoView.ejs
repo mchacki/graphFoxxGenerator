@@ -23,9 +23,9 @@ if (typeof path != "undefined") {
     <button id="confirm" class="btn btn-success">Overwrite</button>
   <%} else if (p !== "") { %>
     <p>
-      Your Widget was installed on the path:<br />
-      <%=p %><br />
-      <button id="decline" class="btn btn-success">Ok</button>
+      Your Widget is now available on the path:<br />
+      <a href="<%=p %>" target="_blank"><%=p %></a><br />
+      <button id="decline" class="btn btn-success">OK</button>
     </p>
   <% } else { %>
     Please be patient.
