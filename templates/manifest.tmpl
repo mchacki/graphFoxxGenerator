@@ -22,15 +22,47 @@
       ]
     },
 		
-		"app.js": {
-			"basePath": "<%=config.basePath%>",
+		"thirdparty.js": {
+			"basePath": "<%= config.libPath %>",
 			"files": [
-			 "meier.js"
+				"jquery-1.8.3.js",
+        "underscore.js",
+		  	"d3.v3.js",
+		  	"d3.fisheye.js",
+				"bootstrap.js"
+			]
+		},
+		
+		"app.js": {
+			"basePath": "<%= config.graphPath %>",
+			"files": [
+		  	"graph/colourMapper.js",
+		  	"graph/forceLayouter.js",
+		  	"graph/eventLibrary.js",
+		  	"graph/eventDispatcher.js",
+		  	"graph/nodeShaper.js",
+		  	"graph/edgeShaper.js",
+		  	"graph/abstractAdapter.js",
+		  	"graph/foxxAdapter.js",
+		  	"graph/zoomManager.js",
+		  	"graph/nodeReducer.js",
+		  	"ui/modalDialogHelper.js",
+		  	"ui/nodeShaperControls.js",
+		  	"ui/edgeShaperControls.js",
+		  	"ui/arangoAdapterControls.js",
+		  	"ui/layouterControls.js",
+		  	"ui/uiComponentsHelper.js",
+		  	"ui/eventDispatcherControls.js",
+		  	"ui/graphViewerUI.js",
+				"graphViewer.js"
 			]
 		},
 		
 		"style.css": {
-			"files": []
+			"basePath": "<%= config.basePath %>",
+			"files": [
+				"style/graphlayout.css"
+			]
 		}
 	}
 }
