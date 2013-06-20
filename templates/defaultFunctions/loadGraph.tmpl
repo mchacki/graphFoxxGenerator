@@ -1,5 +1,4 @@
 var col = req.params("col");
 var key = req.params("key");
 var nodeId = col + "/" + key;
-
-res.json(s.deleteEdgesForNode(nodeId));
+res.json(s.loadChildren(nodeId));

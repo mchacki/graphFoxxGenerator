@@ -129,6 +129,7 @@
         // Build the App config
 				var app = {};
         result.app = app;
+				app.loadGraph = doc.loadGraph;
         app.nodeCreate = doc.nodeCreate;
         app.nodePatch = doc.nodePatch;
         app.nodeDelete = doc.nodeDelete;

@@ -1,2 +1,4 @@
-var nodeId = req.params("id");
+var col = req.params("col");
+var key = req.params("key");
+var nodeId = col + "/" + key;
 res.json(s.patchNode(nodeId, req.body()));

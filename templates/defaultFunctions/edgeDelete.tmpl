@@ -1,2 +1,4 @@
-var edgeId = req.params("id");
+var col = req.params("col");
+var key = req.params("key");
+var edgeId = col + "/" + key;
 res.json(s.deleteEdge(edgeId));

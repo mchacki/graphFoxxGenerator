@@ -19,8 +19,7 @@ exports.deleteEdge = function(id) {
   return edges.remove(id);
 };
 
-exports.deleteEdgesForNode = function(key) {
-  var id = "<%=nodeCollection %>/" + key;
+exports.deleteEdgesForNode = function(id) {
   var es = edges.edges(id);
   _.each(es, function(e) {
     edges.remove(e._id);
@@ -41,6 +40,44 @@ exports.deleteNode = function(id) {
 
 exports.patchNode = function(id, data) {
   return nodes.update(id, JSON.parse(data));
+};
+
+exports.loadChildren = function(nodeid, direction) {
+	var es = [];
+	var ns = [];
+	ns.push(db._document(nodeid));
+	direction = direction || "outbound";
+	switch (direction) {
+		case "outbound":
+			es = edges.outEdges(nodeid);
+			_.each(es, function(e) {
+				ns.push(db._document(e._to));
+			});
+			break;
+		case "inbound":
+			es = edges.inEdges(nodeid);
+			_.each(es, function(e) {
+				ns.push(db._document(e._from));
+			});
+			break;
+		case "any":
+			es = edges.edges(nodeid);
+			_.each(es, function(e) {
+				if (e._from === nodeid) {
+					ns.push(db._document(e._to));
+				} else {
+					ns.push(db._document(e._from));
+				}
+			});
+			break;
+		default:
+			es = edges.outEdges(nodeid);
+	}
+	var result = {
+		nodes: ns,
+		edges: es
+	};
+	return result;
 };
 
 exports.getEdgeCollection = function() {

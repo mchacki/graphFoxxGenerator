@@ -3,6 +3,8 @@
   var FoxxApplication = require("org/arangodb/foxx").Application,
     app = new FoxxApplication();
   
+	<%= man.loadGraphFunction(config.loadGraph) %>
+	
   <%= man.nodesCreateFunction(config.nodeCreate) %>
   
   <%= man.nodesPatchFunction(config.nodePatch) %>
