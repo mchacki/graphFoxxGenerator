@@ -26,7 +26,11 @@ $(function () {
 		generate: function() {
 			var info = new app.GenerateInfoView();
 			info.render();
-			app.connection.generate(false, info.displaySuccess, info.displayError);
+			app.connection.generate(false, function(data) {
+				info.displaySuccess(data)
+			}, function(data) {
+				info.displayError(data)
+			});
 		},
     
 		// Re-render the navigation menu

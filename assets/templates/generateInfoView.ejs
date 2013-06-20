@@ -1,7 +1,11 @@
 <%
 var req = false;
-if (!!requestOverwrite) {
+var p = "";
+if (typeof requestOverwrite != "undefined") {
   req = true;
+}
+if (typeof path != "undefined") {
+  p = path;
 }
 %>
 <div class="modal-header">
@@ -14,10 +18,16 @@ if (!!requestOverwrite) {
     <p>
       A widget with this name already exists.<br />
       Overwrite? 
-      <button id="decline" class="btn btn-error">Cancel</button>
-      <button id="confirm" class="btn btn-success">Overwrite</button>
     </p>
-  <%} else {%>
+    <button id="decline" class="btn btn-error">Cancel</button>
+    <button id="confirm" class="btn btn-success">Overwrite</button>
+  <%} else if (p !== "") { %>
+    <p>
+      Your Widget was installed on the path:<br />
+      <%=p %><br />
+      <button id="decline" class="btn btn-success">Ok</button>
+    </p>
+  <% } else { %>
     Please be patient.
   <% } %>
 </div>

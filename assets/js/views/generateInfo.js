@@ -9,12 +9,34 @@ $(function () {
     
     el: "#generateInfo",
     
-		events: { 
+		events: {
+			"click #confirm": "forceGenerate",
+			"click #decline": "hide",
+			"hidden": "destroy"
     },
     
 		
+		destroy: function() {
+			$(this.el).off('click', '#decline');
+			$(this.el).off('click', '#confirm');
+		},
+		
+		forceGenerate: function() {
+			var self = this;
+			this.render();
+			app.connection.generate(true, function(data) {
+				self.displaySuccess(data)
+			}, function(data) {
+				self.displayError(data)
+			});
+		},
+		
+		hide: function() {
+			$(this.el).modal('hide');
+		},
+		
 		displaySuccess: function(data) {
-			console.log("%s", JSON.stringify(data));
+			this.render(data);
 		},
 		
 		displayError: function(data) {
