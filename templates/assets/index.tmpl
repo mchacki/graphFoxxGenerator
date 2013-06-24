@@ -1,20 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="height:100%;width:100%">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge, chrome=">
     <title><%=name %></title>
     <link rel="stylesheet" href="style.css">
   </head>
-  <body id="content">
+  <body style="height:100%;width:100%">
 		<script type="text/javascript" src="thirdparty.js"></script>
     <script type="text/javascript" src="app.js"></script>
 		<script>
-			var adapterConfig = {
-				type: "foxx",
-				route: ""
-			};
-			var ui = new GraphViewerUI($("#content")[0], adapterConfig, 940, 680);
+			var widget = new GraphViewerWidget();
 		</script>
   </body>
 </html>
