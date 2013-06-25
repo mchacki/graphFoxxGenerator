@@ -11,3 +11,7 @@
 .fixedName {
   line-height: 30px;
 }
+
+ul.nav-interior {
+  margin-bottom: 0px;
+}
