@@ -13,6 +13,7 @@
   "lib": ".",
 
   "files": {
+    "img": "<%= config.imgPath %>"
   },
 	
 	"assets": {
@@ -59,8 +60,9 @@
 		},
 		
 		"style.css": {
-			"basePath": "<%= config.basePath %>",
+			"basePath": "<%= config.graphPath %>",
 			"files": [
+        "style/bootstrap.min.css",
 				"style/graphlayout.css"
 			]
 		}
