@@ -3,6 +3,63 @@ var db = internal.db;
 var _ = require("underscore");
 var edges = db._collection("<%=edgeCollection %>");
 var nodes = db._collection("<%=nodeCollection %>");
+var traversal = require("org/arangodb/graph/traversal");
+var Traverser = traversal.Traverser;
+
+////////////////////////////////////
+// Private Functions               //
+////////////////////////////////////
+
+var visitor = function(config, result, vertex, path) {
+  if (!result) {
+    return;
+  }
+
+  function clone (obj) {
+    if (obj === null || typeof(obj) !== "object") {
+      return obj;
+    }
+
+    var copy, i;
+
+    if (Array.isArray(obj)) {
+      copy = [ ];
+
+      for (i = 0; i < obj.length; ++i) {
+        copy[i] = clone(obj[i]);
+      }
+    }
+    else if (obj instanceof Object) {
+      copy = { };
+
+      if (obj.hasOwnProperty) {
+        for (i in obj) {
+          if (obj.hasOwnProperty(i)) {
+            copy[i] = clone(obj[i]);
+          }
+        }
+      }
+    }
+
+    return copy;
+  }
+
+  if (result.nodes) {
+    if (!result.nodes[vertex._key]) {
+      result.nodes[vertex._key] = clone(vertex);
+    }
+  }
+
+  if (result.edges) {
+    var l = path.edges.length - 1;
+    if (l > -1) {
+      var e = path.edges[l];
+      if (!result.edges[e._key]) {
+        result.edges[e._key] = clone(e);
+      }
+    }
+  }
+};
 
 ////////////////////////////////////
 // Public Functions               //
@@ -42,11 +99,46 @@ exports.patchNode = function(id, data) {
   return nodes.update(id, JSON.parse(data));
 };
 
-exports.loadChildren = function(nodeid, direction) {
+exports.loadChildren = function(nodeid, depth, direction) {
+	direction = direction || "outbound";
+  depth = depth || 1;
+  var config = {
+    edgeCollection: edges,
+    datasource: traversal.collectionDatasourceFactory(edges),
+    maxDepth: depth,
+    visitor: visitor,
+    uniqueness: {
+      vertices: Traverser.UNIQUE_GLOBAL,
+      edges: Traverser.UNIQUE_GLOBAL
+    }
+  };
+	switch (direction) {
+		case "outbound":
+			config.expander = traversal.outboundExpander; 
+			break;
+		case "inbound":
+			config.expander = traversal.inboundExpander;
+			break;
+		case "any":
+			config.expander = traversal.anyExpander;
+			break;
+		default:
+			
+	}
+  var t = new Traverser(config);
+  var res = {
+    nodes: {},
+    edges: {}
+  };
+  var start = db._document(nodeid);
+  t.traverse(res, start);
+  res.first = res.nodes[nodeid.split("/")[1]];
+  return res;
+  
+  /*
 	var es = [];
 	var ns = [];
 	ns.push(db._document(nodeid));
-	direction = direction || "outbound";
 	switch (direction) {
 		case "outbound":
 			es = edges.outEdges(nodeid);
@@ -78,6 +170,7 @@ exports.loadChildren = function(nodeid, direction) {
 		edges: es
 	};
 	return result;
+  */
 };
 
 exports.getEdgeCollection = function() {
