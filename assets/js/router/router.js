@@ -16,9 +16,19 @@ var app = app || {};
     },
     
 		routes: {
+      "action/:name": "displayAction",
       "edit/:name": "displayEdit", 
       "": "displayLoad"
 		},
+
+    displayAction: function (name) {
+			if (!app.loadedApp && name !== "new" && name !== "load") {
+				app.router.navigate("edit/load", {trigger: true});
+			} else {
+        this.menu.render(name);
+        this.changeAction.render(name);
+      }
+    },
 
     displayEdit: function (name) {
 			if (!app.loadedApp && name !== "new" && name !== "load") {
@@ -36,8 +46,7 @@ var app = app || {};
 	          this.changeMeta.render();
 	          break;
 	        default:
-	          this.changeAction.render(name);
-	          break;
+	          this.loadApp.render();
 	      }
 			}
       

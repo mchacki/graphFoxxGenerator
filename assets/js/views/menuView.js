@@ -9,18 +9,28 @@ $(function () {
     
     el: "#navi",
     
-    
 		events: {
 			"click li": "navigate",
 			"click #generate": "generate"
 		},
     
+    initialize: function() {
+      this.actionsMenu = new app.MenuActionsView();
+    },
+    
     navigate: function(event) {
       var id = $(event.currentTarget).attr("id");
       if (id !== undefined) {
-        app.router.navigate("edit/" + $(event.currentTarget).attr("id"), {trigger: true});
+        var p = $(event.currentTarget).parent().attr("id");
+        switch (p) {
+          case "actions_menu":
+            this.actionsMenu.navigate(id);
+            break;
+          default:
+            app.router.navigate("edit/" + $(event.currentTarget).attr("id"), {trigger: true});
+            break;
+        }        
       }
-
     },
 		
 		generate: function() {
@@ -36,6 +46,9 @@ $(function () {
 		// Re-render the navigation menu
 		render: function (selection) {
       $(this.el).html(this.template.render({}));
+      if (app.loadedApp) {
+        this.actionsMenu.render();
+      }
       $("#" + selection).toggleClass("active");
 			return this;
 		}
