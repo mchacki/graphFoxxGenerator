@@ -1,1 +1,19 @@
-<h4>TODO!</h4>
+<% var selected = "default" %>
+<form action="javascript:void(0);" id="action">
+  <fieldset>
+    <legend>Change the Edges</legend>
+    <label class="radio">
+      <input type="radio" name="optUse" id="default" value="default" <%=selected === "default"?"checked":""%>>
+      Use the default for this function.
+    </label>
+    <label class="radio">
+      <input type="radio" name="optUse" id="forbidden" value="forbidden" <%=selected === "forbidden"?"checked":""%>>
+      Forbid this function.
+    </label>
+    <label class="radio">
+      <input type="radio" name="optUse" id="own" value="own" <%=selected === "own"?"checked":""%>>
+      Write a custom function:
+    </label>
+    <button id="submitButton" class="btn btn-success">Submit</button>
+  </fieldset>
+</form>

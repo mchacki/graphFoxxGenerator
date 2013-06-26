@@ -35,9 +35,11 @@ var app = app || {};
     },
     
     displayOptic: function (name) {
+      /*
 			if (!app.loadedApp && name !== "new" && name !== "load") {
 				app.router.navigate("edit/load", {trigger: true});
 			} else {
+      */
         this.menu.render(name);
 	      switch (name) {
 	        case "nodes":
@@ -52,7 +54,7 @@ var app = app || {};
 	        default:
 	          this.loadApp.render();
 	      }
-      }
+        //}
     },
 
     displayEdit: function (name) {

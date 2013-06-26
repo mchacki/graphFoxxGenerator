@@ -22,7 +22,11 @@
     
     "app.js": {
       "files": [
-        "assets/js/third_party/jquery/**",
+        "assets/js/third_party/jquery/**",        
+      	"assets/js/third_party/jquery_colorpicker/colorpicker.js",
+        "assets/js/third_party/jquery_colorpicker/eye.js",
+        "assets/js/third_party/jquery_colorpicker/utils.js",
+        "assets/js/third_party/jquery_colorpicker/layout.js",
         "assets/js/third_party/underscore/**",
         "assets/js/third_party/backbone/**",
         "assets/js/third_party/bootstrap/**",
@@ -38,6 +42,8 @@
     "style.css": {
       "files": [
         "assets/css/third_party/bootstrap/bootstrap.css",
+        "assets/css/third_party/jquery/colorpicker.css",
+        "assets/css/third_party/jquery/layout.css",
         "assets/css/style.css"
       ]
       
