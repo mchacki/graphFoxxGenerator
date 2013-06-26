@@ -67,7 +67,8 @@
         "nodeShaper",
         "edgeShaper",
         "layouter",
-        "toolbox"
+        "toolbox",
+        "actions"
       ];
       _.each(list, function(i) {
         if (!!doc[i]) {
