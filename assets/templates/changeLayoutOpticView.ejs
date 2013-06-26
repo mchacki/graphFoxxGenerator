@@ -1,1 +1,30 @@
-<h4>TODO!</h4>
+<%
+var d = data.distance || "";
+var g = data.gravity || "";
+var c = (-1 * data.charge) || ""
+%>
+<form action="javascript:void(0);" id="layout" class="form-horizontal">
+  <fieldset>
+    <legend>Change the Layout</legend>
+    <div class="control-group">
+      <label class="control-label">Edge length</label>
+      <div class="controls">
+        <input id="distance" name="distance" type="text" placeholder="240" value="<%=d %>">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">Central gravity</label>
+      <div class="controls">
+        <input id="gravity" name="gravity" type="text" placeholder="0.01" value="<%=g %>">
+      </div>
+    </div>
+    <div class="control-group">
+      <label class="control-label">Node repulsion</label>
+      <div class="controls">
+        <input id="repulsion" name="repulsion" type="text" placeholder="1000" value="<%=c %>">
+      </div>
+    </div>
+    
+    <button id="submitButton" class="btn btn-success">Submit</button>
+  </fieldset>
+</form>

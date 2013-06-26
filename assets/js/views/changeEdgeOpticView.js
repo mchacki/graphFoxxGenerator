@@ -85,7 +85,6 @@ $(function () {
     },
     
     submitOptic: function (event) {
-      console.log("SubmitEdge");
       var res = {};
       this.addShapeJSON(res);
       this.addLabelJSON(res);

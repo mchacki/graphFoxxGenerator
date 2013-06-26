@@ -106,7 +106,6 @@ $(function () {
     },
     
     submitOptic: function (event) {
-      console.log("SubmitNode");
       var res = {};
       this.addShapeJSON(res);
       this.addLabelJSON(res);
@@ -119,7 +118,6 @@ $(function () {
       var name = "nodeShaper";
 			var self = this;
 			app.connection.getConfigInfo(name, function(data) {
-        console.log(data);
         $(self.el).html(self.template.render({data: data}));
         $('#colour_background, #colour_foreground').ColorPicker({
         	onSubmit: function(hsb, hex, rgb, el) {
