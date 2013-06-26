@@ -12,20 +12,7 @@
 		<script>
     
       var config = <%=JSON.stringify(gvConfig) %>;
-      /*
-      var config = {
-        actions: {
-          expand: true
-        },
-        nodeShaper: {
-          shape: {
-            type: NodeShaper.shapes.IMAGE,
-            source: "image_url"
-          }
-        }
-      };
-      */
-      
+            
       var getStartNode = function() {
       	var regexS = "[\\?&]start=([^&#]*)";
       	var regex = new RegExp( regexS );
