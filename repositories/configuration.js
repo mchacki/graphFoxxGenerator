@@ -66,7 +66,8 @@
       var list = [
         "nodeShaper",
         "edgeShaper",
-        "layouter"
+        "layouter",
+        "toolbox"
       ];
       _.each(list, function(i) {
         if (!!doc[i]) {

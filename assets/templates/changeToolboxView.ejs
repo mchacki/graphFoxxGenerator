@@ -1,0 +1,31 @@
+<form action="javascript:void(0);" id="toolbox" class="form-horizontal">
+  <fieldset>
+    <legend>Change the Toolbox</legend>
+    <div class="control-group">
+      <label class="checkbox">
+        <input id="expand" type="checkbox" <%=data.expand?"checked":""%>> Add tool to expand nodes.
+      </label>
+    </div>
+    <div class="control-group">
+      <label class="checkbox">
+        <input id="drag" type="checkbox" <%=data.drag?"checked":""%>> Add tool to drag nodes.
+      </label>
+    </div>
+    <div class="control-group">
+      <label class="checkbox">
+        <input id="create" type="checkbox" <%=data.create?"checked":""%>> Add tools to create nodes and edges.
+      </label>
+    </div>
+    <div class="control-group">
+      <label class="checkbox">
+        <input id="edit" type="checkbox" <%=data.edit?"checked":""%>> Add tool to edit nodes and edges.
+      </label>
+    </div>
+    <div class="control-group">
+      <label class="checkbox">
+        <input id="delete" type="checkbox" <%=data.delete?"checked":""%>> Add tool to delete nodes and edges.
+      </label>
+    </div>
+    <button id="submitButton" class="btn btn-success">Submit</button>
+  </fieldset>
+</form>
