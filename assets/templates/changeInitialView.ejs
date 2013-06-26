@@ -1,0 +1,36 @@
+<form action="javascript:void(0);" id="initial" class="form-horizontal">
+  <fieldset>
+    <legend>Change the initial action</legend>
+    <div class="control-group">
+      <label class="radio">
+        <input id="none" type="radio"name="initial" checked> Do not allow any user action.
+      </label>
+    </div>
+    <div class="control-group">
+      <label class="radio">
+        <input id="expand" type="radio" name="initial" <%=data.expand?"checked":""%>> The user can click to expand nodes.
+      </label>
+    </div>
+    <div class="control-group">
+      <label class="radio">
+        <input id="drag" type="radio" name="initial" <%=data.drag?"checked":""%>> The user can drag nodes.
+      </label>
+    </div>
+    <div class="control-group">
+      <label class="radio">
+        <input id="create" type="radio" name="initial" <%=data.create?"checked":""%>> The user can create nodes and edges.
+      </label>
+    </div>
+    <div class="control-group">
+      <label class="radio">
+        <input id="edit" type="radio" name="initial" <%=data.edit?"checked":""%>> The user can edit nodes and edges.
+      </label>
+    </div>
+    <div class="control-group">
+      <label class="radio">
+        <input id="delete" type="radio" name="initial" <%=data.delete?"checked":""%>> The user can delete nodes and edges.
+      </label>
+    </div>
+    <button id="submitButton" class="btn btn-success">Submit</button>
+  </fieldset>
+</form>
