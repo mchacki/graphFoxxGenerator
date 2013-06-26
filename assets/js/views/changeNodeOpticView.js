@@ -13,7 +13,7 @@ $(function () {
       "click input:radio[name=shape]": "selectShapeOption",
       "click input:radio[name=label]": "selectLabelOption",
       "click input:radio[name=colour]": "selectColourOption",
-      "submit form#optic": "submitOptic"
+      "submit form#node": "submitOptic"
     },
     
     toggleBoxes: function (toHide, toShow) {
@@ -106,6 +106,7 @@ $(function () {
     },
     
     submitOptic: function (event) {
+      console.log("SubmitNode");
       var res = {};
       this.addShapeJSON(res);
       this.addLabelJSON(res);

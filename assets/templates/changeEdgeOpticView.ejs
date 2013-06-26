@@ -1,19 +1,108 @@
-<% var selected = "default" %>
-<form action="javascript:void(0);" id="action">
+<%
+var s = {};
+var l = "";
+var c = {};
+if (!!data.shape) {
+  s = data.shape;
+} else {
+  s.type = 0;
+}
+if (!!data.label) {
+  l = data.label;
+}
+if (!!data.color) {
+  c = data.color;
+} else {
+  c.type = "single";
+}
+c.stroke = c.stroke || "#686766";
+c.source = c.source || "#686766";
+c.target = c.target || "#686766";
+
+  var k = c.key || "";
+  
+ %>
+<form action="javascript:void(0);" id="edge" class="form-horizontal">
   <fieldset>
     <legend>Change the Edges</legend>
-    <label class="radio">
-      <input type="radio" name="optUse" id="default" value="default" <%=selected === "default"?"checked":""%>>
-      Use the default for this function.
-    </label>
-    <label class="radio">
-      <input type="radio" name="optUse" id="forbidden" value="forbidden" <%=selected === "forbidden"?"checked":""%>>
-      Forbid this function.
-    </label>
-    <label class="radio">
-      <input type="radio" name="optUse" id="own" value="own" <%=selected === "own"?"checked":""%>>
-      Write a custom function:
-    </label>
+    <fieldset id="shape">
+      <legend>Arrow</legend>
+      <label class="radio">
+        <input type="radio" name="shape" id="shape_none" value="0" <%=s.type === 0?"checked":""%>>
+        Do not display an arrow.
+      </label>
+      <label class="radio">
+        <input type="radio" name="shape" id="shape_arrow" value="1" <%=s.type === 1?"checked":""%>>
+        Display the direction arrow
+      </label>
+    </fieldset>
+    
+    <fieldset id="label">
+      <legend>Label</legend>
+      <label class="radio">
+        <input type="radio" name="label" id="label_none" value="none" <%=l === ""?"checked":""%>>
+        Do not use a label.
+      </label>
+      <label class="radio">
+        <input type="radio" name="label" id="label_attribute" value="attribute" <%=l === ""?"":"checked"%>>
+        Display the content of an attribute:
+      </label>
+      <div id="label_attribute_box" style="display:<%=l === ""?"none":"block"%>">
+        <div class="control-group">
+          <label class="control-label">Label</label>
+          <div class="controls">
+            <input id="label_key" name="label" type="text" placeholder="Label" value="<%=l %>">
+          </div>
+        </div>
+      </div>
+    </fieldset>
+
+    <fieldset id="colour">
+      <legend>Colour</legend>
+      <label class="radio">
+        <input type="radio" name="colour" id="colour_auto" value="auto" <%=c.type === "attribute"?"checked":""%>>
+        Automatic colouring by attribute:
+      </label>
+      <div id="colour_auto_box" style="display:<%=c.type === "attribute"?"block":"none"%>">
+        <div class="control-group">
+          <label class="control-label">Attribute</label>
+          <div class="controls">
+            <input id="colour_attribute" name="attribute" type="text" placeholder="Attribute" value="<%=k %>">
+          </div>
+        </div>
+      </div>
+      <label class="radio">
+        <input type="radio" name="colour" id="colour_fixed" value="fixed" <%=c.type === "single"?"checked":""%>>
+        Colour all edges with:
+      </label>
+      <div id="colour_fixed_box" style="display:<%=c.type === "single"?"block":"none"%>">
+        <div class="control-group">
+          <label class="control-label">Colour</label>
+          <div class="controls">
+            <input id="colour_foreground" name="colour_foreground" type="text" placeholder="Foreground" value="<%=c.stroke.substr(1) %>" style="background-color:<%=c.stroke %>">
+          </div>
+        </div>
+      </div>
+      <label class="radio">
+        <input type="radio" name="colour" id="colour_direction" value="gradient" <%=c.type === "gradient"?"checked":""%>>
+        Switch colour of edge from source to target node:
+      </label>
+      <div id="colour_direction_box" style="display:<%=c.type === "gradient"?"block":"none"%>">
+        <div class="control-group">
+          <label class="control-label">Source</label>
+          <div class="controls">
+            <input id="colour_source" name="colour_source" type="text" placeholder="Source" value="<%=c.source.substr(1) %>" style="background-color:<%=c.source %>">
+          </div>
+        </div>
+        <div class="control-group">
+          <label class="control-label">Target</label>
+          <div class="controls">
+            <input id="colour_target" name="colour_target" type="text" placeholder="Target" value="<%=c.target.substr(1) %>" style="background-color:<%=c.target %>">
+          </div>
+        </div>
+      </div>
+    </fieldset>
+    
     <button id="submitButton" class="btn btn-success">Submit</button>
   </fieldset>
 </form>

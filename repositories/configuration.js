@@ -61,6 +61,19 @@
       });
       return passed;
     },
+    buildGVConfig = function(doc) {
+      var res = {};
+      var list = [
+        "nodeShaper",
+        "edgeShaper"
+      ];
+      _.each(list, function(i) {
+        if (!!doc[i]) {
+          res[i] = doc[i];
+        }
+      });
+      return res;
+    },
     Repo = Foxx.Repository.extend({
       info: function(name) {
         return this.collection.document(name);
@@ -110,17 +123,17 @@
 				return doc[actName] || {default: true};
 			},
 			
-      config: function(app, config) {
-        var data = {config: config};
+      config: function(app, className, config) {
+        var data = {};
+        data[className] = null;
+        this.collection.update(app, data);
+        data[className] = config;
         return this.collection.update(app, data);
       },
       
       getConfig: function(app, name) {
         var doc = this.collection.document(app);
-        if (!doc || !doc.config) {
-          return {};
-        }
-        return doc.config[name];
+        return doc[name] || {};
       },
       
       
@@ -162,6 +175,7 @@
 				result.assets = assets;
 				assets.index = {};
 				assets.index.name = doc.name;
+        assets.index.gvConfig = buildGVConfig(doc);
 				
         return result;
       }

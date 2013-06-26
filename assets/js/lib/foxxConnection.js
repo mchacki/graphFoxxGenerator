@@ -64,9 +64,7 @@ var app = app || {};
 	
   app.connection.updateConfig = function(className, config, success, error) {
     var name = app.loadedApp;
-    var data = {};
-    data[className] = config;
-		sendRequest("PATCH", "app/" + name + "/config", data, success, error);
+		sendRequest("PATCH", "app/" + name + "/config/" + className, config, success, error);
   };
   
 	app.connection.getApps = function(success, error) {

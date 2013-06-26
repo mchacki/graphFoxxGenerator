@@ -59,11 +59,12 @@
     r.sendOk(res, result);
   });
 
-  app.patch("/app/:appname/config", function(req, res) {
+  app.patch("/app/:appname/config/:object", function(req, res) {
     var r = require("lib/responder");
     var config = JSON.parse(req.body());
     var app = req.params("appname");
-    var result = repositories.configuration.config(app, config);
+    var obj = req.params("object");
+    var result = repositories.configuration.config(app, obj, config);
     r.sendOk(res, result);
   });
 

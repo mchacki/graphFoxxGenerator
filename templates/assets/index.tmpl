@@ -10,7 +10,32 @@
 		<script type="text/javascript" src="thirdparty.js"></script>
     <script type="text/javascript" src="app.js"></script>
 		<script>
-			var widget = new GraphViewerWidget();
+    
+      var config = <%=JSON.stringify(gvConfig) %>;
+      /*
+      var config = {
+        actions: {
+          expand: true
+        },
+        nodeShaper: {
+          shape: {
+            type: NodeShaper.shapes.IMAGE,
+            source: "image_url"
+          }
+        }
+      };
+      */
+      
+      var getStartNode = function() {
+      	var regexS = "[\\?&]start=([^&#]*)";
+      	var regex = new RegExp( regexS );
+      	var results = regex.exec(window.location.href);
+      	if ( results == null )
+      		return null;
+      	else
+      		return results[1];
+      };
+			var widget = new GraphViewerWidget(config, getStartNode());
 		</script>
   </body>
 </html>
