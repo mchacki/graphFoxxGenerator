@@ -17,6 +17,7 @@ $(function () {
     initialize: function() {
       this.actionsMenu = new app.MenuActionsView();
       this.opticMenu = new app.MenuOpticView();
+      this.uiMenu = new app.MenuUserInteractionView();
     },
     
     navigate: function(event) {
@@ -29,6 +30,9 @@ $(function () {
             break;
           case "optic_menu":
             this.opticMenu.navigate(id);
+            break;
+          case "ui_menu":
+            this.uiMenu.navigate(id);
             break;
           default:
             app.router.navigate("edit/" + $(event.currentTarget).attr("id"), {trigger: true});
@@ -53,6 +57,7 @@ $(function () {
       if (app.loadedApp) {
         this.actionsMenu.render();
         this.opticMenu.render();
+        this.uiMenu.render();
       }
       $("#" + selection).toggleClass("active");
 			return this;
