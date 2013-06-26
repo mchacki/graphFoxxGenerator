@@ -59,6 +59,21 @@
     r.sendOk(res, result);
   });
 
+  app.patch("/app/:appname/config", function(req, res) {
+    var r = require("lib/responder");
+    var config = JSON.parse(req.body());
+    var app = req.params("appname");
+    var result = repositories.configuration.config(app, config);
+    r.sendOk(res, result);
+  });
+
+  app.get("/app/:appname/config/:object", function(req, res) {
+    var r = require("lib/responder");
+    var app = req.params("appname");
+    var obj = req.params("object");
+    var result = repositories.configuration.getConfig(app, obj);
+    r.sendOk(res, result);
+  });
 
   app.get("/config/:name", function(req, res) {
     var r = require("lib/responder");

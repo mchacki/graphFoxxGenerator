@@ -110,6 +110,16 @@
 				return doc[actName] || {default: true};
 			},
 			
+      config: function(app, config) {
+        var data = {config: config};
+        return this.collection.update(app, data);
+      },
+      
+      getConfig: function(app, name) {
+        var doc = this.collection.document(app);
+        return doc.configuration[name];
+      },
+      
       
       buildConfig: function(name) {
         var doc = this.collection.document(name);
