@@ -117,7 +117,10 @@
       
       getConfig: function(app, name) {
         var doc = this.collection.document(app);
-        return doc.configuration[name];
+        if (!doc || !doc.config) {
+          return {};
+        }
+        return doc.config[name];
       },
       
       

@@ -106,43 +106,35 @@ $(function () {
     },
     
     submitOptic: function (event) {
-      var ns = {};
-      this.addShapeJSON(ns);
-      this.addLabelJSON(ns);
-      this.addColourJSON(ns);
-      var res = {
-        nodeShaper: ns
-      };
-      console.log(res);
-      /*
-      var content = $("input:radio[name=optUse]:checked").val();
-      if (content === "own") {
-        var editor = ace.edit("functionEditor");
-        content = editor.getValue();
-      }
-      var data = {
-        action: content
-      };
-      app.connection.updateAction(this.actionName, data);
-      */
+      var res = {};
+      this.addShapeJSON(res);
+      this.addLabelJSON(res);
+      this.addColourJSON(res);
+      app.connection.updateConfig("nodeShaper", res);
       event.stopPropagation();
     },
     
 		render: function () {
-      $(this.el).html(this.template.render({}));
-      $('#colour_background, #colour_foreground').ColorPicker({
-      	onSubmit: function(hsb, hex, rgb, el) {
-      		$(el).val(hex);
-          $(el).css("background", "#" + hex);
-      		$(el).ColorPickerHide();
-      	},
-      	onBeforeShow: function () {
-      		$(this).ColorPickerSetColor(this.value);
-      	}
-      })
-      .bind('keyup', function(){
-      	$(this).ColorPickerSetColor(this.value);
-      });
+      var name = "nodeShaper";
+			var self = this;
+			app.connection.getConfigInfo(name, function(data) {
+        console.log(data);
+        $(self.el).html(self.template.render({data: data}));
+        $('#colour_background, #colour_foreground').ColorPicker({
+        	onSubmit: function(hsb, hex, rgb, el) {
+        		$(el).val(hex);
+            $(el).css("background", "#" + hex);
+        		$(el).ColorPickerHide();
+        	},
+        	onBeforeShow: function () {
+        		$(this).ColorPickerSetColor(this.value);
+        	}
+        })
+        .bind('keyup', function(){
+        	$(this).ColorPickerSetColor(this.value);
+        });
+			});
+      return this;
 		}
     
 	});

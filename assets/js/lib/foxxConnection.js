@@ -62,6 +62,13 @@ var app = app || {};
 		sendRequest("PATCH", "app/" + name + "/action/" + actionName, action, success, error);
   };
 	
+  app.connection.updateConfig = function(className, config, success, error) {
+    var name = app.loadedApp;
+    var data = {};
+    data[className] = config;
+		sendRequest("PATCH", "app/" + name + "/config", data, success, error);
+  };
+  
 	app.connection.getApps = function(success, error) {
 		sendRequest("GET", "app", undefined, success, error);
 	}; 
@@ -76,6 +83,11 @@ var app = app || {};
 		sendRequest("GET", "app/" + name + "/action/" + actionName, undefined, success, error);
 	};
 	
+  app.connection.getConfigInfo = function(className, success, error) {
+		var name = app.loadedApp;
+		sendRequest("GET", "app/" + name + "/config/" + className, undefined, success, error);
+  };
+  
 	app.connection.generate = function(forced, success, error) {
 		var name = app.loadedApp;
 		var body = {};

@@ -1,16 +1,30 @@
-<% 
-  var config = {};
-  var shape = config.shape || {};
-  var colour = config.colour || {};
-  shape.type = 1;
-  var r = shape.radius || "";
-  var w = shape.width || "";
-  var h = shape.height || "";
-  var i = shape.source || "";
-  var def = shape.fallback || "";
-  var label = config.label || "";
-  var k = colour.key || "";
-  colour.type = "attribute";
+<%
+var s = {};
+var l = "";
+var c = {};
+if (!!data.shape) {
+  s = data.shape;
+} else {
+  s.type = 0;
+}
+if (!!data.label) {
+  l = data.label;
+}
+if (!!data.color) {
+  c = data.color;
+} else {
+  c.type = "single";
+  c.fill = "#FF8F35";
+  c.stroke = "#8AA051";
+}
+
+  var r = s.radius || "";
+  var w = s.width || "";
+  var h = s.height || "";
+  var i = s.source || "";
+  var def = s.fallback || "";
+
+  var k = c.key || "";
   
  %>
 <form action="javascript:void(0);" id="optic" class="form-horizontal">
@@ -19,14 +33,14 @@
     <fieldset id="shape">
       <legend>Shape</legend>
       <label class="radio">
-        <input type="radio" name="shape" id="shape_none" value="0" <%=shape.type === 0?"checked":""%>>
+        <input type="radio" name="shape" id="shape_none" value="0" <%=s.type === 0?"checked":""%>>
         Do not display boundary of nodes.
       </label>
       <label class="radio">
-        <input type="radio" name="shape" id="shape_circle" value="1" <%=shape.type === 1?"checked":""%>>
+        <input type="radio" name="shape" id="shape_circle" value="1" <%=s.type === 1?"checked":""%>>
         Display nodes as circles.
       </label>
-      <div id="shape_circle_box" style="display:<%=shape.type === 1?"block":"none"%>">
+      <div id="shape_circle_box" style="display:<%=s.type === 1?"block":"none"%>">
         <div class="control-group">
           <label class="control-label">Radius</label>
           <div class="controls">
@@ -35,10 +49,10 @@
         </div>
       </div>
       <label class="radio">
-        <input type="radio" name="shape" id="shape_rect" value="2" <%=shape.type === 2?"checked":""%>>
+        <input type="radio" name="shape" id="shape_rect" value="2" <%=s.type === 2?"checked":""%>>
         Display nodes as rectangles.
       </label>
-      <div id="shape_rect_box" style="display:<%=shape.type === 2?"block":"none"%>">
+      <div id="shape_rect_box" style="display:<%=s.type === 2?"block":"none"%>">
         <div class="control-group">
           <label class="control-label">Width</label>
           <div class="controls">
@@ -53,10 +67,10 @@
         </div>
       </div>
       <label class="radio">
-        <input type="radio" name="shape" id="shape_image" value="3" <%=shape.type === 3?"checked":""%>>
+        <input type="radio" name="shape" id="shape_image" value="3" <%=s.type === 3?"checked":""%>>
         Display images instead of nodes.
       </label>
-      <div id="shape_image_box" style="display:<%=shape.type === 3?"block":"none"%>">
+      <div id="shape_image_box" style="display:<%=s.type === 3?"block":"none"%>">
         <div class="control-group">
           <label class="control-label">Width</label>
           <div class="controls">
@@ -87,18 +101,18 @@
     <fieldset id="label">
       <legend>Label</legend>
       <label class="radio">
-        <input type="radio" name="label" id="label_none" value="none" <%=label === ""?"checked":""%>>
+        <input type="radio" name="label" id="label_none" value="none" <%=l === ""?"checked":""%>>
         Do not use a label.
       </label>
       <label class="radio">
-        <input type="radio" name="label" id="label_attribute" value="attribute" <%=label === ""?"":"checked"%>>
+        <input type="radio" name="label" id="label_attribute" value="attribute" <%=l === ""?"":"checked"%>>
         Display the content of an attribute:
       </label>
-      <div id="label_attribute_box" style="display:<%=label === ""?"none":"block"%>">
+      <div id="label_attribute_box" style="display:<%=l === ""?"none":"block"%>">
         <div class="control-group">
           <label class="control-label">Label</label>
           <div class="controls">
-            <input id="label_key" name="label" type="text" placeholder="Label" value="<%=label %>">
+            <input id="label_key" name="label" type="text" placeholder="Label" value="<%=l %>">
           </div>
         </div>
       </div>
@@ -107,10 +121,10 @@
     <fieldset id="colour">
       <legend>Colour</legend>
       <label class="radio">
-        <input type="radio" name="colour" id="colour_auto" value="auto" <%=colour.type === "attribute"?"checked":""%>>
+        <input type="radio" name="colour" id="colour_auto" value="auto" <%=c.type === "attribute"?"checked":""%>>
         Automatic colouring by attribute:
       </label>
-      <div id="colour_auto_box" style="display:<%=colour.type === "attribute"?"block":"none"%>">
+      <div id="colour_auto_box" style="display:<%=c.type === "attribute"?"block":"none"%>">
         <div class="control-group">
           <label class="control-label">Attribute</label>
           <div class="controls">
@@ -119,20 +133,20 @@
         </div>
       </div>
       <label class="radio">
-        <input type="radio" name="colour" id="colour_fixed" value="fixed" <%=colour.type === "single"?"checked":""%>>
+        <input type="radio" name="colour" id="colour_fixed" value="fixed" <%=c.type === "single"?"checked":""%>>
         Colour all nodes with:
       </label>
-      <div id="colour_fixed_box" style="display:<%=colour.type === "single"?"block":"none"%>">
+      <div id="colour_fixed_box" style="display:<%=c.type === "single"?"block":"none"%>">
         <div class="control-group">
           <label class="control-label">Background</label>
           <div class="controls">
-            <input id="colour_background" name="colour_background" type="text" placeholder="Background" value="<%=colour.fill %>">
+            <input id="colour_background" name="colour_background" type="text" placeholder="Background" value="<%=c.fill.substr(1) %>" style="background-color:<%=c.fill %>">
           </div>
         </div>
         <div class="control-group">
           <label class="control-label">Foreground</label>
           <div class="controls">
-            <input id="colour_foreground" name="colour_foreground" type="text" placeholder="Foreground" value="<%=colour.stroke %>">
+            <input id="colour_foreground" name="colour_foreground" type="text" placeholder="Foreground" value="<%=c.stroke.substr(1) %>" style="background-color:<%=c.stroke %>">
           </div>
         </div>
       </div>
