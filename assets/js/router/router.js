@@ -18,7 +18,8 @@ var app = app || {};
       this.changeLayout = new app.ChangeLayoutOpticView();
       this.changeToolbox = new app.ChangeToolboxView();
       this.changeInitial = new app.ChangeInitialView();
-      
+      app.preview = new app.PreviewView();
+      app.preview.render();
     },
     
 		routes: {

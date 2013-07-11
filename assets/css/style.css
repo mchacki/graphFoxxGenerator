@@ -15,3 +15,17 @@
 ul.nav-interior {
   margin-bottom: 0px;
 }
+
+/* Adding some more sizes to twitter bootstrap */
+
+.span13 {
+  width: 1020px;
+}
+
+.span14 {
+  width: 1100px;
+}
+
+.span15 {
+  width: 1180px;
+}

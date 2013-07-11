@@ -20,6 +20,42 @@
       ]
     },
     
+		"thirdparty.js": {
+			"basePath": "/Users/hacki/triAgens/arangoBackend/ArangoDB/html/admin/js/lib",
+			"files": [
+		  	"d3.v3.js",
+		  	"d3.fisheye.js"
+			]
+		},
+    
+		"graphViewer.js": {
+			"basePath": "/Users/hacki/triAgens/arangoBackend/ArangoDB/html/admin/js/graphViewer",
+			"files": [
+		  	"graph/colourMapper.js",
+		  	"graph/forceLayouter.js",
+		  	"graph/eventLibrary.js",
+		  	"graph/eventDispatcher.js",
+		  	"graph/nodeShaper.js",
+		  	"graph/edgeShaper.js",
+        "graph/abstractAdapter.js",
+		  	"graph/previewAdapter.js",
+		  	"graph/foxxAdapter.js",
+		  	"graph/zoomManager.js",
+        "graph/modularityJoiner.js",
+		  	"graph/nodeReducer.js",
+		  	"ui/modalDialogHelper.js",
+		  	"ui/nodeShaperControls.js",
+		  	"ui/edgeShaperControls.js",
+		  	"ui/arangoAdapterControls.js",
+		  	"ui/layouterControls.js",
+		  	"ui/uiComponentsHelper.js",
+		  	"ui/eventDispatcherControls.js",
+		  	"ui/graphViewerPreview.js",
+				"graphViewer.js"
+			]
+		},
+    
+    
     "app.js": {
       "files": [
         "assets/js/third_party/jquery/**",        
