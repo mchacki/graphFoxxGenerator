@@ -33,10 +33,11 @@
 				"bootstrap.js"
 			]
 		},
-		
+    
 		"app.js": {
 			"basePath": "<%= config.graphPath %>",
 			"files": [
+        "graph/webWorkerWrapper.js",
 		  	"graph/colourMapper.js",
 		  	"graph/forceLayouter.js",
 		  	"graph/eventLibrary.js",
@@ -46,6 +47,7 @@
 		  	"graph/abstractAdapter.js",
 		  	"graph/foxxAdapter.js",
 		  	"graph/zoomManager.js",
+        "graph/modularityJoiner.js",
 		  	"graph/nodeReducer.js",
 		  	"ui/modalDialogHelper.js",
 		  	"ui/nodeShaperControls.js",
@@ -60,7 +62,7 @@
 		},
 		
 		"style.css": {
-			"basePath": "<%= config.graphPath %>",
+			"basePath": "<%= config.cssPath %>",
 			"files": [
         "style/bootstrap.min.css",
 				"style/graphlayout.css"

@@ -1,5 +1,6 @@
 (function() {
   "use strict";
+    
   var FoxxApplication = require("org/arangodb/foxx").Application,
     app = new FoxxApplication();
 
@@ -82,11 +83,13 @@
   });
 
   app.post("/generate/:name", function(req, res) {
+    var fs = require("fs");
+    var path = fs.join(module.devAppPath(), "graphGen");
     var content = JSON.parse(req.body());
     var overwrite = content.overwrite || false;
     var name = req.params("name");
     var TM = require("lib/templateManager").TemplateManager;
-    var man = new TM();
+    var man = new TM(path);
     var fm = require("org/arangodb/foxx-manager");
     var r = require("lib/responder");
     var appPath = "/" + name;
@@ -115,8 +118,10 @@
   });
 
   app.get('/route', function (req, res) {
+    var fs = require("fs");
+    var path = fs.join(module.devAppPath(), "graphGen");
     var TM = require("lib/templateManager").TemplateManager;
-    var man = new TM();
+    var man = new TM(path);
     
     var error = man.generateAll({
       name: "Test",
@@ -139,8 +144,10 @@
   .notes("notes");
 
   app.get('/routeForced', function (req, res) {
+    var fs = require("fs");
+    var path = fs.join(module.devAppPath(), "graphGen");
     var TM = require("lib/templateManager").TemplateManager;
-    var man = new TM();
+    var man = new TM(path);
     
     var error = man.generateAll({
       name: "Test",
@@ -166,10 +173,12 @@
   
   
   app.get('/test', function (req, res) {
+    var fs = require("fs");
+    var path = fs.join(module.devAppPath(), "graphGen");
     var overwrite = true;
     var name = "Test";
     var TM = require("lib/templateManager").TemplateManager;
-    var man = new TM();
+    var man = new TM(path);
     var fm = require("org/arangodb/foxx-manager");
     var r = require("lib/responder");
     if (overwrite) {
@@ -193,6 +202,13 @@
         res.body = e.errorMessage;
       }
     }
+  });
+  
+  app.get("/path", function (req, res) {
+    var fs = require("fs");
+    var _ = require("underscore");
+    var internal = require("internal");
+    res.json(internal.read("README.md"));
   });
 
   
