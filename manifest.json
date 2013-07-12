@@ -21,7 +21,7 @@
     },
     
 		"thirdparty.js": {
-			"basePath": "/Users/hacki/triAgens/arangoBackend/ArangoDB/html/admin/js/lib",
+			"basePath": "/Users/hacki/triagens/devel/html/admin/js/lib",
 			"files": [
 		  	"d3.v3.js",
 		  	"d3.fisheye.js"
@@ -29,8 +29,9 @@
 		},
     
 		"graphViewer.js": {
-			"basePath": "/Users/hacki/triAgens/arangoBackend/ArangoDB/html/admin/js/graphViewer",
+			"basePath": "/Users/hacki/triagens/devel/html/admin/js/graphViewer",
 			"files": [
+        "graph/webWorkerWrapper.js",
 		  	"graph/colourMapper.js",
 		  	"graph/forceLayouter.js",
 		  	"graph/eventLibrary.js",
@@ -75,6 +76,13 @@
       ]
     },
     
+    "style/graphViewer.css": {
+      "basePath": "/Users/hacki/triagens/devel/html/admin/css",
+      "files": [
+        "graphlayout.css"
+      ]
+    },
+    
     "style.css": {
       "files": [
         "assets/css/third_party/bootstrap/bootstrap.css",
@@ -92,7 +100,8 @@
   "files": {
     "js_templates": "templates",
     "templates": "assets/templates",
-    "img": "assets/images",
-    "ace": "assets/js/third_party/ace"
+    "jquery": "assets/images/third_party/jquery",
+    "ace": "assets/js/third_party/ace",
+    "img": "assets/img"
   }
 }
