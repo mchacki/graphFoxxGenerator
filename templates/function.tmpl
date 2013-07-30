@@ -1,7 +1,5 @@
 app.<%= type.toLowerCase() %>('/<%= route%>', function (req, res) {
-  var s = require("lib/storage");
   <%= action%>
 })
-.nickname("<%= name %>")
 .summary("<%= summary %>")
 .notes("<%= notes %>");

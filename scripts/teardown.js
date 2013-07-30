@@ -39,7 +39,7 @@
   var db = arangodb.db;
 
   var dropCollection = function(name) {
-    var handle = app.collectionName(name);
+    var handle = applicationContext.collectionName(name);
     if (db._collection(handle) === null) {
       db._drop(handle);
     }

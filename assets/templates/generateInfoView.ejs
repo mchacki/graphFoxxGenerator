@@ -6,6 +6,12 @@ if (typeof requestOverwrite != "undefined") {
 }
 if (typeof path != "undefined") {
   p = path;
+  ifpath = "";
+  ifpath += window.location.protocol;
+  ifpath += "//"
+  ifpath += window.location.host;
+  ifpath += path;
+  ifpath += "/index.html?start=<_id>";
 }
 %>
 <div class="modal-header">
@@ -25,6 +31,10 @@ if (typeof path != "undefined") {
     <p>
       Your Widget is now available on the path:<br />
       <a href="<%=p %>" target="_blank"><%=p %></a><br />
+      <br />
+      <br />
+      You can directly embed it using this iframe where you should replace the &lt;_id&gt;:<br />
+      <code>&lt;iframe height="100%" width="100%" src="<%= ifpath %>"&gt;&lt;/iframe&gt;</code><br />
       <button id="decline" class="btn btn-success">OK</button>
     </p>
   <% } else { %>

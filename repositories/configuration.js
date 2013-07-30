@@ -139,6 +139,10 @@
         return doc[name] || {};
       },
       
+      buildViewerConfig: function(name) {
+        var doc = this.collection.document(name);
+        return buildGVConfig(doc);
+      },
       
       buildConfig: function(name) {
         var doc = this.collection.document(name);

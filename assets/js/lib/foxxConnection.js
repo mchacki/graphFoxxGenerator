@@ -5,13 +5,30 @@ var app = app || {};
   
   app.connection = {};
   
-	var successHandler = function (success) {
+	var successHandler = function (success, omitSuccess) {
 		if (success) {
+      if (!omitSuccess) {
+        return function(d) {
+          success(d);
+          app.preview.updateViewer();
+        }
+      }
 			return success;
 		}
+    
+    if (!omitSuccess) {
+      return function() {
+        /* Maybe replace
+        alert("Success");
+        */
+        app.preview.updateViewer();
+      }
+    }
+    /* Maybe replace
 		return function() {
 			alert("Success");
 		}
+    */
 	};
 	
 	var errorHandler = function (error) {
@@ -23,14 +40,14 @@ var app = app || {};
 		}
 	};
 	
-  var sendRequest = function (type, route, data, success, error) {
+  var sendRequest = function (type, route, data, success, error, omitSuccess) {
     $.ajax({
       type: type,
       url: route,
       data: JSON.stringify(data),
       contentType: "application/json",
       processData: false,
-      success: successHandler(success),
+      success: successHandler(success, omitSuccess),
       error: errorHandler(error)
     });
   };
@@ -84,6 +101,11 @@ var app = app || {};
   app.connection.getConfigInfo = function(className, success, error) {
 		var name = app.loadedApp;
 		sendRequest("GET", "app/" + name + "/config/" + className, undefined, success, error);
+  };
+  
+  app.connection.getViewerConfig = function(success, error) {
+		var name = app.loadedApp;
+		sendRequest("GET", "viewerConfig/" + name, undefined, success, error, true);
   };
   
 	app.connection.generate = function(forced, success, error) {

@@ -2,19 +2,23 @@
   "use strict";
     
   var FoxxApplication = require("org/arangodb/foxx").Application,
-    app = new FoxxApplication();
+    app = new FoxxApplication(applicationContext),
+    r = require("lib/responder"),
+    fs = require("fs"),
+    fm = require("org/arangodb/foxx-manager"),
+    path = applicationContext.basePath,
+    TM = require("lib/templateManager").TemplateManager,
+    man = new TM(path),
 
-  app.registerRepository(
-    "configuration", {
-      repository: "repositories/configuration"
-    }
-  );
+    config = app.createRepository(
+      "configuration", {
+        repository: "repositories/configuration"
+      }
+    );
   
   app.post("/app", function (req, res) {
-    var r = require("lib/responder");
     try {
-      var result = repositories
-        .configuration
+      var result = config
         .create(JSON.parse(req.body()));
       r.sendCreated(res, result);
     } catch (err) {
@@ -23,75 +27,65 @@
   });
   
   app.patch("/app/:name", function (req, res) {
-    var r = require("lib/responder");
-    r.sendOk(res, repositories.configuration.update(req.params("name"), JSON.parse(req.body())));
+    r.sendOk(res, config.update(req.params("name"), JSON.parse(req.body())));
   });
   
   app.get("/app", function (req, res) {
-    var r = require("lib/responder");
-    r.sendOk(res, repositories.configuration.keys());
+    r.sendOk(res, config.keys());
   });
   
   app.get("/app/:name", function (req, res) {
-    var r = require("lib/responder");
-    r.sendOk(res, repositories.configuration.info(req.params("name")));
+    r.sendOk(res, config.info(req.params("name")));
   });
   
   app.del("/app/:name", function(req, res) {
-    var r = require("lib/responder");
-    r.sendOk(res, repositories.configuration.del(req.params("name")));
+    r.sendOk(res, config.del(req.params("name")));
   });
 
   app.get("/app/:appname/action/:actionname", function(req, res) {
-    var r = require("lib/responder");
     var app = req.params("appname");
     var name = req.params("actionname");
-    var result = repositories.configuration.getAction(app, name);
+    var result = config.getAction(app, name);
     r.sendOk(res, result);
   });
 
   app.patch("/app/:appname/action/:actionname", function(req, res) {
-    var r = require("lib/responder");
     var content = JSON.parse(req.body());
     var app = req.params("appname");
     var name = req.params("actionname");
     var action = content.action;
-    var result = repositories.configuration.action(app, name, action);
+    var result = config.action(app, name, action);
     r.sendOk(res, result);
   });
 
   app.patch("/app/:appname/config/:object", function(req, res) {
-    var r = require("lib/responder");
-    var config = JSON.parse(req.body());
+    var configuration = JSON.parse(req.body());
     var app = req.params("appname");
     var obj = req.params("object");
-    var result = repositories.configuration.config(app, obj, config);
+    var result = config.config(app, obj, configuration);
     r.sendOk(res, result);
   });
 
   app.get("/app/:appname/config/:object", function(req, res) {
-    var r = require("lib/responder");
     var app = req.params("appname");
     var obj = req.params("object");
-    var result = repositories.configuration.getConfig(app, obj);
+    var result = config.getConfig(app, obj);
     r.sendOk(res, result);
   });
 
   app.get("/config/:name", function(req, res) {
-    var r = require("lib/responder");
-    r.sendOk(res, repositories.configuration.buildConfig(req.params("name")));
+    r.sendOk(res, config.buildConfig(req.params("name")));
   });
 
+  app.get("/viewerConfig/:name", function(req, res) {
+    r.sendOk(res, config.buildViewerConfig(req.params("name")));
+  });
+  
+
   app.post("/generate/:name", function(req, res) {
-    var fs = require("fs");
-    var path = fs.join(module.devAppPath(), "graphGen");
     var content = JSON.parse(req.body());
     var overwrite = content.overwrite || false;
     var name = req.params("name");
-    var TM = require("lib/templateManager").TemplateManager;
-    var man = new TM(path);
-    var fm = require("org/arangodb/foxx-manager");
-    var r = require("lib/responder");
     var appPath = "/" + name;
     if (overwrite) {
       try {
@@ -100,15 +94,19 @@
         require("console").warn("Did uninstall App mounted on: /" + name);
       }
     };
-    var config = repositories.configuration.buildConfig(name)
-    var error = man.generateAll(config, overwrite);
+    var configure = config.buildConfig(name);
+    var error = man.generateAll(configure, overwrite);
     if (error) {
+      require("console").log("Send Error");
       res.status(error.errorNum);
       res.body = error.errorMessage;
     } else {
+      require("console").log("Scanning");
       fm.scanAppDirectory();
       try {
-        fm.installApp(name, appPath);
+        require("console").log("Mounting");
+        fm.mount(name, appPath);
+        require("console").log("Installed!");
         r.sendCreated(res, {path: appPath});
       } catch(e) {
         res.status(e.errorNum);
@@ -117,12 +115,7 @@
     }
   });
 
-  app.get('/route', function (req, res) {
-    var fs = require("fs");
-    var path = fs.join(module.devAppPath(), "graphGen");
-    var TM = require("lib/templateManager").TemplateManager;
-    var man = new TM(path);
-    
+  app.get('/route', function (req, res) {    
     var error = man.generateAll({
       name: "Test",
       manifest: {
@@ -139,16 +132,10 @@
       res.body = "Creation of App complete";
     }
   })
-  .nickname("name")
   .summary("summary")
   .notes("notes");
 
-  app.get('/routeForced', function (req, res) {
-    var fs = require("fs");
-    var path = fs.join(module.devAppPath(), "graphGen");
-    var TM = require("lib/templateManager").TemplateManager;
-    var man = new TM(path);
-    
+  app.get('/routeForced', function (req, res) {    
     var error = man.generateAll({
       name: "Test",
       manifest: {
@@ -167,14 +154,11 @@
       res.body = error.errorMessage;
     }
   })
-  .nickname("name")
   .summary("summary")
   .notes("notes");  
   
-  
+  /*
   app.get('/test', function (req, res) {
-    var fs = require("fs");
-    var path = fs.join(module.devAppPath(), "graphGen");
     var overwrite = true;
     var name = "Test";
     var TM = require("lib/templateManager").TemplateManager;
@@ -188,7 +172,7 @@
         require("console").warn("Did uninstall App mounted on: /" + name);
       }
     };
-    var error = man.generateAll(repositories.configuration.buildConfig("Test"), overwrite);
+    var error = man.generateAll(config.buildConfig("Test"), overwrite);
     if (error) {
       res.status(error.errorNum);
       res.body = error.errorMessage;
@@ -203,14 +187,5 @@
       }
     }
   });
-  
-  app.get("/path", function (req, res) {
-    var fs = require("fs");
-    var _ = require("underscore");
-    var internal = require("internal");
-    res.json(internal.read("README.md"));
-  });
-
-  
-  app.start(applicationContext);
+  */
 }());

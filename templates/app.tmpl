@@ -1,7 +1,8 @@
 (function() {
   "use strict";
   var FoxxApplication = require("org/arangodb/foxx").Application,
-    app = new FoxxApplication();
+    app = new FoxxApplication(applicationContext),
+    s = require("lib/storage");
   
 	<%= man.loadGraphFunction(config.loadGraph) %>
 	
@@ -19,5 +20,4 @@
   
   <%= man.edgesForNodeDeleteFunction(config.edgeForNodeDelete) %>
   
-  app.start(applicationContext);
 }());
