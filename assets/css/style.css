@@ -32,3 +32,8 @@ cursor: pointer;
 .span15 {
   width: 1180px;
 }
+
+div.modal {
+width: 60%;
+margin-left: -30%;
+}

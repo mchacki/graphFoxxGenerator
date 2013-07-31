@@ -11,7 +11,7 @@ if (typeof path != "undefined") {
   ifpath += "//"
   ifpath += window.location.host;
   ifpath += path;
-  ifpath += "/index.html?start=<_id>";
+  ifpath += "/index.html?start=";
 }
 %>
 <div class="modal-header">
@@ -30,14 +30,21 @@ if (typeof path != "undefined") {
   <%} else if (p !== "") { %>
     <p>
       Your Widget is now available on the path:<br />
-      <a href="<%=p %>" target="_blank"><%=p %></a><br />
+      <a href="<%=ifpath %>random" target="_blank"><%=p %></a><br />
       <br />
       <br />
-      You can directly embed it using this iframe where you should replace the &lt;_id&gt;:<br />
-      <code>&lt;iframe height="100%" width="100%" src="<%= ifpath %>"&gt;&lt;/iframe&gt;</code><br />
+      You can directly embed it using this iframe where you should replace $_id$:<br />
+<pre>
+&lt;iframe
+  height="100%"
+  width="100%"
+  src="<%= ifpath %>$_id$"&gt;
+&lt;/iframe&gt;
+</pre><br />
       <button id="decline" class="btn btn-success">OK</button>
     </p>
   <% } else { %>
-    Please be patient.
+    Please be patient.<br />
+    <img src="img/swagger/throbber.gif"></img>
   <% } %>
 </div>
