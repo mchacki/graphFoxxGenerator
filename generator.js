@@ -9,7 +9,8 @@
     path = applicationContext.basePath,
     TM = require("lib/templateManager").TemplateManager,
     man = new TM(path),
-
+    console = require("console"),
+    
     config = app.createRepository(
       "configuration", {
         repository: "repositories/configuration"
@@ -89,32 +90,31 @@
     var appPath = "/" + name;
     if (overwrite) {
       try {
-        fm.uninstallApp(appPath);
+        fm.unmount(appPath);
+        require("console").warn("Did uninstall App mounted on: " + appPath);
       } catch (e) {
-        require("console").warn("Did uninstall App mounted on: /" + name);
+        require("console").error("Could not uninstall App mounted on: " + appPath);
       }
     };
     var configure = config.buildConfig(name);
     var error = man.generateAll(configure, overwrite);
     if (error) {
-      require("console").log("Send Error");
       res.status(error.errorNum);
       res.body = error.errorMessage;
+      console.error(error.errorNum, error.errorMessage);
     } else {
-      require("console").log("Scanning");
       fm.scanAppDirectory();
       try {
-        require("console").log("Mounting");
         fm.mount(name, appPath);
-        require("console").log("Installed!");
         r.sendCreated(res, {path: appPath});
       } catch(e) {
         res.status(e.errorNum);
         res.body = e.errorMessage;
+        console.error(e.errorNum, e.errorMessage);
       }
     }
   });
-
+  /*
   app.get('/route', function (req, res) {    
     var error = man.generateAll({
       name: "Test",
@@ -157,7 +157,6 @@
   .summary("summary")
   .notes("notes");  
   
-  /*
   app.get('/test', function (req, res) {
     var overwrite = true;
     var name = "Test";
