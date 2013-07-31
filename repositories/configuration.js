@@ -38,6 +38,7 @@
     Foxx = require("org/arangodb/foxx"),
     whitelist = [
       "name",
+      "author",
       "description",
       "version",
       "edgeCollection",
@@ -100,7 +101,7 @@
           return this.collection.save(data);
         }
         var message = "Malformed description. Please give:";
-        message += " name, description, version,";
+        message += " name, author, description, version,";
         message += " edgeCollection and nodeCollection.";
         throw new Error(message);        
       },

@@ -5,30 +5,26 @@ var app = app || {};
   
   app.connection = {};
   
-	var successHandler = function (success, omitSuccess) {
+	var successHandler = function (success, updatePreview, omitSuccess) {
+
 		if (success) {
       if (!omitSuccess) {
         return function(d) {
           success(d);
-          app.preview.updateViewer();
+          if (updatePreview) {
+            app.preview.updateViewer();
+          }
         }
       }
 			return success;
 		}
-    
     if (!omitSuccess) {
       return function() {
-        /* Maybe replace
-        alert("Success");
-        */
-        app.preview.updateViewer();
+        if (updatePreview) {
+          app.preview.updateViewer();
+        }
       }
     }
-    /* Maybe replace
-		return function() {
-			alert("Success");
-		}
-    */
 	};
 	
 	var errorHandler = function (error) {
@@ -47,14 +43,15 @@ var app = app || {};
       data: JSON.stringify(data),
       contentType: "application/json",
       processData: false,
-      success: successHandler(success, omitSuccess),
+      success: successHandler(success, type !== "GET", omitSuccess),
       error: errorHandler(error)
     });
   };
   
-  app.connection.createApp = function (name, description, version, nodes, edges, success, error) {
+  app.connection.createApp = function (name, author, description, version, nodes, edges, success, error) {
     var data = {
       name: name,
+      author: author,
       description: description,
       version: version,
       nodeCollection: nodes,
@@ -63,9 +60,10 @@ var app = app || {};
     sendRequest("POST", "app", data, success, error);
   };
   
-  app.connection.updateMetadata = function (description, version, nodes, edges, success, error) {
+  app.connection.updateMetadata = function (author, description, version, nodes, edges, success, error) {
     var name = app.loadedApp;
     var data = {
+      author: author,
       description: description,
       version: version,
       nodeCollection: nodes,
@@ -105,7 +103,9 @@ var app = app || {};
   
   app.connection.getViewerConfig = function(success, error) {
 		var name = app.loadedApp;
-		sendRequest("GET", "viewerConfig/" + name, undefined, success, error, true);
+    if (name) {
+      sendRequest("GET", "viewerConfig/" + name, undefined, success, error, true);
+    }
   };
   
 	app.connection.generate = function(forced, success, error) {

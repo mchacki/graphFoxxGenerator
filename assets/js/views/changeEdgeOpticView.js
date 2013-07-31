@@ -89,7 +89,6 @@ $(function () {
       this.addShapeJSON(res);
       this.addLabelJSON(res);
       this.addColourJSON(res);
-      console.log(res);
       app.connection.updateConfig("edgeShaper", res);
       event.stopPropagation();
     },

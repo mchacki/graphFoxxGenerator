@@ -18,11 +18,12 @@ $(function () {
 	      $(self.el).html(self.template.render(data));
 	      var valObj = app.validate.meta;
 	      valObj.submitHandler = function () {
+          var aut = $("#author").val();
 	        var desc = $("#description").val();
 	        var vers = $("#version").val();
 	        var nodes = $("#nodeCollection").val();
 	        var edges = $("#edgeCollection").val();
-	        app.connection.updateMetadata(desc, vers, nodes, edges);
+	        app.connection.updateMetadata(aut, desc, vers, nodes, edges);
 	      };
 	      $("form#metaEdit").validate(valObj);
 			});

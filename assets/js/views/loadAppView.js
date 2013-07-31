@@ -15,6 +15,7 @@ $(function () {
     
 		loadApp: function () {
 			app.loadedApp = $("#selectApp").val();
+      app.preview.updateViewer();
 			app.router.navigate("edit/meta", {trigger: true});
 		},
 		

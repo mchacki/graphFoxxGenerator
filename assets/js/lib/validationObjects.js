@@ -18,6 +18,11 @@ var app = app || {};
   rules.name.minlength = 5;
   messages.name.minlength = $.format("Enter at least {0} characters");
   
+  rules.author = {};
+  messages.author = {};
+  rules.author.minlength = 1;
+  messages.author.minlength = $.format("Enter at least {0} characters");
+  
   rules.description = {};
   messages.description = {};
   rules.description.minlength = 10;

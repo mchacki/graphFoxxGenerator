@@ -18,11 +18,12 @@ $(function () {
     },
     
     updateViewer: function() {
+      var self = this;
       app.connection.getViewerConfig(function(config) {
-        this._viewer = null;
+        self._viewer = null;
         $("#previewDiv").empty();
-        console.log(config.layout);
-        this._viewer = new GraphViewerPreview(document.getElementById("previewDiv"), config);
+        self._viewer = new GraphViewerPreview(document.getElementById("previewDiv"), config);
+        $(self.el).css("visibility", "visible");
       }, function() {});
     },
 
@@ -30,6 +31,11 @@ $(function () {
 		// Re-render the navigation menu
 		render: function () {
       $(this.el).html(this.template.render({}));
+      if (app.loadedApp) {
+        $(this.el).css("visibility", "visible");
+      } else {
+        $(this.el).css("visibility", "hidden");
+      }
 			return this;
 		}
     
