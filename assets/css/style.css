@@ -16,6 +16,9 @@ ul.nav-interior {
   margin-bottom: 0px;
 }
 
+ul.nav {
+cursor: pointer;
+}
 /* Adding some more sizes to twitter bootstrap */
 
 .span13 {
