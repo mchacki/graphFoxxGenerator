@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "description": "A Generator for Foxx Apps shipping the graph viewer.",
 
-  "apps": {
+  "controllers": {
     "/": "generator.js"
   },
   
@@ -20,41 +20,41 @@
       ]
     },
     
-		"thirdparty.js": {
-			"basePath": "/Users/hacki/triagens/devel/html/admin/js/lib",
-			"files": [
-		  	"d3.v3.js",
-		  	"d3.fisheye.js"
-			]
-		},
+    "thirdparty.js": {
+      "basePath": "/Users/hacki/triagens/devel/js/apps/system/aardvark/frontend/js/lib",
+      "files": [
+        "d3.v3.js",
+        "d3.fisheye.js"
+      ]
+    },
     
-		"graphViewer.js": {
-			"basePath": "/Users/hacki/triagens/devel/html/admin/js/graphViewer",
-			"files": [
+    "graphViewer.js": {
+      "basePath": "/Users/hacki/triagens/devel/js/apps/system/aardvark/frontend/js/graphViewer",
+      "files": [
         "graph/webWorkerWrapper.js",
-		  	"graph/colourMapper.js",
-		  	"graph/forceLayouter.js",
-		  	"graph/eventLibrary.js",
-		  	"graph/eventDispatcher.js",
-		  	"graph/nodeShaper.js",
-		  	"graph/edgeShaper.js",
+        "graph/colourMapper.js",
+        "graph/forceLayouter.js",
+        "graph/eventLibrary.js",
+        "graph/eventDispatcher.js",
+        "graph/nodeShaper.js",
+        "graph/edgeShaper.js",
         "graph/abstractAdapter.js",
-		  	"graph/previewAdapter.js",
-		  	"graph/foxxAdapter.js",
-		  	"graph/zoomManager.js",
+        "graph/previewAdapter.js",
+        "graph/foxxAdapter.js",
+        "graph/zoomManager.js",
         "graph/modularityJoiner.js",
-		  	"graph/nodeReducer.js",
-		  	"ui/modalDialogHelper.js",
-		  	"ui/nodeShaperControls.js",
-		  	"ui/edgeShaperControls.js",
-		  	"ui/arangoAdapterControls.js",
-		  	"ui/layouterControls.js",
-		  	"ui/uiComponentsHelper.js",
-		  	"ui/eventDispatcherControls.js",
-		  	"ui/graphViewerPreview.js",
-				"graphViewer.js"
-			]
-		},
+        "graph/nodeReducer.js",
+        "ui/modalDialogHelper.js",
+        "ui/nodeShaperControls.js",
+        "ui/edgeShaperControls.js",
+        "ui/arangoAdapterControls.js",
+        "ui/layouterControls.js",
+        "ui/uiComponentsHelper.js",
+        "ui/eventDispatcherControls.js",
+        "ui/graphViewerPreview.js",
+        "graphViewer.js"
+      ]
+    },
     
     
     "app.js": {
@@ -77,7 +77,7 @@
     },
     
     "style/graphViewer.css": {
-      "basePath": "/Users/hacki/triagens/devel/html/admin/css",
+      "basePath": "/Users/hacki/triagens/devel/js/apps/system/aardvark/frontend/css",
       "files": [
         "graphlayout.css"
       ]

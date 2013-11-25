@@ -1,21 +1,17 @@
 (function() {
   "use strict";
     
-  var FoxxApplication = require("org/arangodb/foxx").Application,
+  var FoxxApplication = require("org/arangodb/foxx").Controller,
     app = new FoxxApplication(applicationContext),
     r = require("lib/responder"),
     fs = require("fs"),
-    fm = require("org/arangodb/foxx-manager"),
+    fm = require("org/arangodb/foxx/manager"),
     path = applicationContext.basePath,
     TM = require("lib/templateManager").TemplateManager,
     man = new TM(path),
     console = require("console"),
-    
-    config = app.createRepository(
-      "configuration", {
-        repository: "repositories/configuration"
-      }
-    );
+    Configuration = require("repositories/configuration").Repository,
+    config = new Configuration(app.collection("configuration")); 
   
   app.post("/app", function (req, res) {
     try {
@@ -60,7 +56,7 @@
   });
 
   app.patch("/app/:appname/config/:object", function(req, res) {
-    var configuration = JSON.parse(req.body());
+    var configuration = req.body();
     var app = req.params("appname");
     var obj = req.params("object");
     var result = config.config(app, obj, configuration);

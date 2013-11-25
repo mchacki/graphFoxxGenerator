@@ -122,11 +122,11 @@
         return this.collection.update(app, data);
       },
       
-			getAction: function(app, actName) {
-				var doc = this.collection.document(app);
-				return doc[actName] || {default: true};
-			},
-			
+      getAction: function(app, actName) {
+        var doc = this.collection.document(app);
+        return doc[actName] || {default: true};
+      },
+ 
       config: function(app, className, config) {
         var data = {};
         data[className] = null;
@@ -154,16 +154,16 @@
         result.teardown = doc.teardown;
         
         // Build the Manifest config
-				var manifest = {};
+        var manifest = {};
         result.manifest = manifest;
         result.manifest.name = doc.name;
         result.manifest.version = doc.version;
         result.manifest.description = doc.description;
         
         // Build the App config
-				var app = {};
+        var app = {};
         result.app = app;
-				app.loadGraph = doc.loadGraph;
+        app.loadGraph = doc.loadGraph;
         app.nodeCreate = doc.nodeCreate;
         app.nodePatch = doc.nodePatch;
         app.nodeDelete = doc.nodeDelete;
@@ -173,18 +173,17 @@
         app.edgeForNodeDelete = doc.edgeForNodeDelete;
         
         // Build the collection config
-				var collections = {};
+        var collections = {};
         result.collections = collections;
         collections.edges = doc.edgeCollection;
         collections.nodes = doc.nodeCollection;
         
-				// Build the assets config
-				var assets = {};
-				result.assets = assets;
-				assets.index = {};
-				assets.index.name = doc.name;
+        // Build the assets config
+        var assets = {};
+        result.assets = assets;
+        assets.index = {};
+        assets.index.name = doc.name;
         assets.index.gvConfig = buildGVConfig(doc);
-				
         return result;
       }
     });
